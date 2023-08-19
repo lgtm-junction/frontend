@@ -7,19 +7,26 @@ import { useContainerRef } from "@/context/useContainerRef";
 
 export default function BottomSheets({
   children,
-  height,
+  initialTop,
 }: {
   children: ReactNode;
-  height: number;
+  initialTop: number;
 }) {
   const ref = useRef<SheetRef>();
   const snapTo = (i: number) => ref.current?.snapTo(i);
   const [top, setTop] = useState(0);
+  const [bottom, setBottom] = useState(0);
 
   const { ref: containerRef } = useContainerRef();
 
   useEffect(() => {
-    setTop(window.innerHeight - 60);
+    const handleBottomSheet = () => {
+      setTop(window.innerHeight - 60);
+      setBottom(window.innerHeight - initialTop);
+    };
+    handleBottomSheet();
+    window.addEventListener("resize", handleBottomSheet);
+    return () => window.removeEventListener("resize", handleBottomSheet);
   }, []);
 
   return containerRef && containerRef.current ? (
@@ -29,7 +36,7 @@ export default function BottomSheets({
       onClose={() => {
         snapTo(1);
       }}
-      snapPoints={[top, height]}
+      snapPoints={[top, bottom]}
       initialSnap={1}
       ref={ref}
     >

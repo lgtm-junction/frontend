@@ -50,7 +50,7 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
         </div>
       </S.Container>
-      <BottomSheets height={550}>
+      <BottomSheets initialTop={350}>
         <div className="w-full flex flex-col px-4">
           {MENUS.map((menu) => (
             <Link
