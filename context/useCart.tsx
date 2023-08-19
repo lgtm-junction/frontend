@@ -1,7 +1,12 @@
 "use client";
 
 import { CustomType } from "@/types/type";
-import { ReactNode, createContext, useContext } from "react";
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext
+} from "react";
 import useCachedState from "./useCachedState";
 
 const CACHE_KEY_CART = "cart";
@@ -23,12 +28,21 @@ export const CartContext = createContext<CartProps>({
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useCachedState<CartItemType[]>(CACHE_KEY_CART, []);
-  const addCart = (item: CartItemType) => {
-    setCart((cart) => [...cart, item]);
-  };
-  const removeCart = (index: number) => {
-    setCart((cart) => cart.filter((_, i) => i !== index));
-  };
+
+  const addCart = useCallback(
+    (item: CartItemType) => {
+      setCart((cart) => [...cart, item]);
+    },
+    [setCart]
+  );
+
+  const removeCart = useCallback(
+    (index: number) => {
+      setCart((cart) => cart.filter((_, i) => i !== index));
+    },
+    [setCart]
+  );
+
   return (
     <CartContext.Provider value={{ cart, addCart, removeCart }}>
       {children}

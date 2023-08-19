@@ -29,7 +29,7 @@ export default function Page() {
             <Octagon
               key={`octagon-${idx}`}
               width="96px"
-              backgroundImage={`/${item}.jpg`}
+              $backgroundImage={`/${item}.jpg`}
               className="flex justify-center items-center text-white text-2xl font-bold capitalize"
             >
               {item}
@@ -41,7 +41,7 @@ export default function Page() {
           {["Almond Extra", "Vanilla Extra", "Shiftpsh Latte"].map((title) => (
             <PresetItem
               title={title}
-              backgroundImage="/coffee.jpg"
+              $backgroundImage="/coffee.jpg"
               key={title}
             />
           ))}
@@ -51,7 +51,7 @@ export default function Page() {
           {["Almond Extra", "Vanilla Extra", "Shiftpsh Latte"].map((title) => (
             <PresetItem
               title={title}
-              backgroundImage="/coffee.jpg"
+              $backgroundImage="/coffee.jpg"
               key={title}
             />
           ))}

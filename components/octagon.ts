@@ -2,14 +2,14 @@
 
 import styled from "styled-components";
 
-export const Octagon = styled.div<{ width: string; backgroundImage?: string }>`
+export const Octagon = styled.div<{ width: string; $backgroundImage?: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: ${(props) => props.width};
   height: ${(props) => props.width};
   background-color: #e2e7e9;
-  background-image: url("${(props) => props.backgroundImage}");
+  background-image: url("${(props) => props.$backgroundImage}");
   background-size: cover;
 
   clip-path: polygon(

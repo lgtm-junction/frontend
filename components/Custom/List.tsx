@@ -1,9 +1,9 @@
+import { useCart } from "@/context/useCart";
+import { CustomType } from "@/types/type";
 import { convertValueAndUnit } from "@/utils/convert";
-import { Octagon } from "../octagon";
 import { Dispatch, SetStateAction } from "react";
 import { MdClose } from "react-icons/md";
-import { CustomType } from "@/types/type";
-import { useCart } from "@/context/useCart";
+import { Octagon } from "../octagon";
 
 export default function CustomList({
   items,
@@ -24,7 +24,7 @@ export default function CustomList({
           onClick={() => setOpenedCustom(custom.id)}
         >
           <Octagon
-            backgroundImage={custom.author.image}
+            $backgroundImage={custom.author.image}
             width="80px"
             className="bg-cover shrink-0"
           />

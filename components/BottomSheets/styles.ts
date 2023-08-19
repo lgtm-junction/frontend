@@ -1,5 +1,5 @@
-import { styled } from "styled-components";
 import Sheet from "react-modal-sheet";
+import { styled } from "styled-components";
 
 export const StyledSheet = styled(Sheet)`
   position: absolute !important;
@@ -15,8 +15,8 @@ export const SheetContainer = styled(Sheet.Container)`
   background-color: white;
 `;
 
-export const SheetBackdrop = styled(Sheet.Backdrop)<{ isIgnored: boolean }>`
+export const SheetBackdrop = styled(Sheet.Backdrop)<{ $isIgnored: boolean }>`
   background: none !important;
-  ${(props) => props.isIgnored && `pointer-events: none !important;`}
+  ${(props) => props.$isIgnored && `pointer-events: none !important;`}
   cursor: default;
 `;

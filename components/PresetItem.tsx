@@ -34,16 +34,16 @@ const RecentPresetTitle = styled.div`
 
 interface PresetItemProps {
   title: string;
-  backgroundImage: string;
+  $backgroundImage: string;
 }
 
 const PresetItem = (props: PresetItemProps) => {
-  const { title, backgroundImage } = props;
+  const { title, $backgroundImage } = props;
 
   return (
     <RecentPresetItem key={title}>
       <RecentPresetTitleContainer>
-        <Octagon width="36px" backgroundImage={backgroundImage}></Octagon>
+        <Octagon width="36px" $backgroundImage={$backgroundImage}></Octagon>
         <RecentPresetTitle>{title}</RecentPresetTitle>
       </RecentPresetTitleContainer>
       <MdNavigateNext size="24px" />

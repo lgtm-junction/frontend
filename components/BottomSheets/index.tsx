@@ -1,9 +1,9 @@
 "use client";
 
-import Sheet, { SheetRef } from "react-modal-sheet";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
-import * as S from "./styles";
 import { useContainerRef } from "@/context/useContainerRef";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import Sheet, { SheetRef } from "react-modal-sheet";
+import * as S from "./styles";
 
 export default function BottomSheets({
   children,
@@ -65,7 +65,7 @@ export default function BottomSheets({
         onTap={() => {
           if (close) close();
         }}
-        isIgnored={close === null}
+        $isIgnored={close === null}
       />
     </S.StyledSheet>
   ) : (
