@@ -1,7 +1,7 @@
 import Map from "@/components/Map";
 import * as S from "./styles";
 
-const bexcoLatLng = { latitude: 35.1689766, longitude: 129.1360411 }
+const bexcoLatLng = { latitude: 35.1689766, longitude: 129.1360411 };
 
 export default function Home() {
   return (
@@ -9,7 +9,11 @@ export default function Home() {
       <h1>메인 페이지</h1>
       <div>
         지도- 근처 가게들 볼 수 있음 (팝업) <br />
-        <Map style={{width: 500, height: 500}} center={bexcoLatLng} zoom={13} />
+        <Map
+          style={{ width: `100%`, height: 400 }}
+          center={bexcoLatLng}
+          zoom={13}
+        />
         아래 추천 가게 리스트들 대표 사진, 가게명, 메뉴, 사용하는 모델 누르면
         가게 메인 페이지로 감
       </div>
