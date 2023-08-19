@@ -14,6 +14,8 @@ export const Container = styled.main`
 export const Link = styled.a`
   display: block;
   color: blue;
+  display: flex;
+  align-items: center;
   text-decoration: underline;
   cursor: pointer;
 `;
