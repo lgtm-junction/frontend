@@ -1,7 +1,9 @@
-import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import MyPageView from "./view";
+import { getServerSession } from "next-auth/next";
 
 export default async function Page() {
-  return <MyPageView />;
+  const session = await getServerSession(authOptions);
+
+  return session?.user ? <MyPageView /> : <></>;
 }
