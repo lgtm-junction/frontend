@@ -13,6 +13,48 @@ const MENUS = [
     image: "/cafeLatte.jpeg",
     customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
   },
+  {
+    id: 2,
+    name: "Cafe Latte",
+    price: 5000,
+    image: "/cafeLatte.jpeg",
+    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  },
+  {
+    id: 3,
+    name: "Cafe Latte",
+    price: 5000,
+    image: "/cafeLatte.jpeg",
+    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  },
+  {
+    id: 4,
+    name: "Cafe Latte",
+    price: 5000,
+    image: "/cafeLatte.jpeg",
+    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  },
+  {
+    id: 5,
+    name: "Cafe Latte",
+    price: 5000,
+    image: "/cafeLatte.jpeg",
+    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  },
+  {
+    id: 6,
+    name: "Cafe Latte",
+    price: 5000,
+    image: "/cafeLatte.jpeg",
+    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  },
+  {
+    id: 7,
+    name: "Cafe Latte",
+    price: 5000,
+    image: "/cafeLatte.jpeg",
+    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  },
 ];
 
 export default function Page({ params }: { params: { id: string } }) {

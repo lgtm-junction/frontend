@@ -17,7 +17,7 @@ const MENU = {
 
 const CUSTOM = [
   {
-    id: "1",
+    id: 1,
     name: "ALMOND EXTRA",
     price: 5000,
     tags: ["SWEET", "NUTS"],
@@ -29,7 +29,7 @@ const CUSTOM = [
     },
   },
   {
-    id: "1",
+    id: 2,
     name: "ALMOND EXTRA",
     price: 5000,
     tags: ["SWEET", "NUTS"],
