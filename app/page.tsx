@@ -7,27 +7,27 @@ import { MdLocationOn } from "react-icons/md";
 import * as S from "./styles";
 import { CustomRecipe } from "@/components/global/CustomRecipe";
 import { useEffect, useState } from "react";
-import { getFoods } from "@/firebase/getData";
-import { FoodCustomization } from "@/firebase/models/food";
+import { getAllFoods } from "@/firebase/getData";
+import { FoodCustomization } from "@/firebase/models/foodCustomization";
 import Link from "next/link";
 
-type FoodCustomizationWithFinalPrice = FoodCustomization & {
-  finalPrice: number;
-};
+type FoodCustomizationWithFoodPrice = FoodCustomization & {
+  foodPrice: number;
+}
 
 export default function Home() {
   const [customizations, setCustomizations] = useState<
-    FoodCustomizationWithFinalPrice[]
+    FoodCustomizationWithFoodPrice[]
   >([]);
 
   useEffect(() => {
     (async () => {
       // fetch all customizations
-      const foods = await getFoods();
+      const foods = await getAllFoods();
       const foodCustomizations = foods.flatMap((food) =>
         food.customizations.map((customization) => ({
           ...customization,
-          finalPrice: customization.additionalPrice + food.basePrice,
+          foodPrice: food.price,
         }))
       );
       setCustomizations(foodCustomizations);

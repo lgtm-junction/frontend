@@ -3,61 +3,40 @@
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
+import { getDocument, getFoods } from "@/firebase/getData";
+import { Food } from "@/firebase/models/food";
+import { Restaurant, RestaurantCollectionName } from "@/firebase/models/restaurant";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const MENUS = [
-  {
-    id: 1,
-    name: "Cafe Latte",
-    price: 5000,
-    image: "/cafeLatte.jpeg",
-    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
-  },
-  {
-    id: 2,
-    name: "Cafe Latte",
-    price: 5000,
-    image: "/cafeLatte.jpeg",
-    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
-  },
-  {
-    id: 3,
-    name: "Cafe Latte",
-    price: 5000,
-    image: "/cafeLatte.jpeg",
-    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
-  },
-  {
-    id: 4,
-    name: "Cafe Latte",
-    price: 5000,
-    image: "/cafeLatte.jpeg",
-    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
-  },
-  {
-    id: 5,
-    name: "Cafe Latte",
-    price: 5000,
-    image: "/cafeLatte.jpeg",
-    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
-  },
-  {
-    id: 6,
-    name: "Cafe Latte",
-    price: 5000,
-    image: "/cafeLatte.jpeg",
-    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
-  },
-  {
-    id: 7,
-    name: "Cafe Latte",
-    price: 5000,
-    image: "/cafeLatte.jpeg",
-    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
-  },
-];
+type RestaurantWithMenu = Restaurant & { menus: Food[] }
 
 export default function Page({ params }: { params: { id: string } }) {
+
+  const [restaurant, setRestaurant] = useState<RestaurantWithMenu>();
+
+  useEffect(() => {
+    (async () => {
+
+      const restaurantDoc = await getDocument<Restaurant>(RestaurantCollectionName, params.id);
+
+      const restaurant = restaurantDoc.data();
+
+      if (!restaurant) {
+        // 404 case
+        throw new Error("Restaurant not found");
+      }
+
+      const menus = await getFoods(restaurant.foodIds);
+      setRestaurant({
+        ...restaurant,
+        menus,
+      });
+
+    })();
+  }, []);
+
+
   return (
     <>
       <S.Container>
@@ -94,14 +73,14 @@ export default function Page({ params }: { params: { id: string } }) {
       </S.Container>
       <BottomSheets initialTop={350}>
         <div className="w-full flex flex-col px-4">
-          {MENUS.map((menu) => (
+          {restaurant?.menus.map((menu) => (
             <Link
               href={`./${params.id}/menu/${menu.id}`}
               className="flex gap-3 items-center border-b border-b-gray-100 last-of-type:border-b-transparent py-4"
               key={menu.id}
             >
               <div className="w-20 h-20 border border-black">
-                <img src={menu.image} className="w-full h-full object-cover" />
+                <img src={menu.imageUrl} className="w-full h-full object-cover" />
               </div>
 
               <div className="flex flex-col">
@@ -115,7 +94,7 @@ export default function Page({ params }: { params: { id: string } }) {
                   <div>
                     <div className="text-sm text-gray-500">Custom options</div>
                     <div className="text-sm">
-                      {menu.customOptions.slice(0, 2).map((option, i) => (
+                      {menu.options?.slice(0, 2).map((option, i) => (
                         <span
                           key={i}
                           className="after:content-[',_'] last-of-type:after:content-['']"
@@ -123,14 +102,14 @@ export default function Page({ params }: { params: { id: string } }) {
                           {option}
                         </span>
                       ))}
-                      {menu.customOptions.length > 2 &&
-                        `, +${menu.customOptions.length - 2}`}
+                      {(menu.options?.length ?? 0) > 2 &&
+                        `, +${(menu.options?.length ?? 0) - 2}`}
                     </div>
                   </div>
                 </div>
               </div>
             </Link>
-          ))}
+          )) ?? <p className="flex justify-center items-center">Loading...</p>}
         </div>
       </BottomSheets>
     </>

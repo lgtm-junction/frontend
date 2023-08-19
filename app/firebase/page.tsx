@@ -3,29 +3,33 @@ import * as S from "../styles";
 import { useEffect, useState } from "react";
 import { getDocuments } from "@/firebase/getData";
 import { Restaurant, RestaurantCollectionName } from "@/firebase/models/restaurant";
+import { addDoc, collection, doc, getFirestore } from "firebase/firestore";
+import { FoodCollectionName } from "@/firebase/models/food";
+import { firebaseApp } from "@/firebase/firebase.config";
 
+const testFood = {
+  name: "Cafe Latte",
+  price: 5000,
+  image: "/cafeLatte.jpeg",
+  customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+}
+
+const db = getFirestore(firebaseApp)
 
 export default function Home() {
 
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const createDocs = async () => {
 
-  const fetchRestaurants = async () => {
+    addDoc(collection(db, FoodCollectionName), testFood);
 
-    getDocuments<Restaurant>(RestaurantCollectionName)
-    .then((querySnapshot) => {
-      const newData = querySnapshot.docs
-      .map((doc) => ({ ...doc.data(), id: doc.id }));
-
-      setRestaurants(newData);
-    })
 
   }
 
   useEffect(() => {
-    fetchRestaurants();
+    createDocs();
   }, [])
 
   return <S.Container><pre>{
-    JSON.stringify(restaurants, null, 2)
+    JSON.stringify(testFood, null, 2)
     }</pre></S.Container>;
 }

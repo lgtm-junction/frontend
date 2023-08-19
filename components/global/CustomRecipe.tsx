@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { Octagon } from "../octagon";
 import { BsFillPersonFill } from "react-icons/bs";
-import { FoodCustomization } from "@/firebase/models/food";
+import { FoodCustomization } from "@/firebase/models/foodCustomization";
 
 interface CustomRecipeProps extends FoodCustomization {
-  finalPrice: number;
+  foodPrice: number;
 }
 
 export const CustomRecipe: React.FC<CustomRecipeProps> = (props) => {
@@ -20,7 +20,7 @@ export const CustomRecipe: React.FC<CustomRecipeProps> = (props) => {
             </div>
             <div className="flex flex-col">
               <p className="text-xl font-bold">{props.name}</p>
-              <p className="text-xl pb-3">₩ {props.finalPrice}</p>
+              <p className="text-xl pb-3">₩ {props.foodPrice.toLocaleString()}</p>
               <p className="text-base text-gray-300">@{props.author}</p>
             </div>
           </div>

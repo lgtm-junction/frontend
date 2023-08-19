@@ -15,7 +15,7 @@ export interface Food {
 
   customizations: FoodCustomization[];
 
-  options: string[];
+  options?: string[];
 }
 
 export const FoodCollectionName = "foods";
