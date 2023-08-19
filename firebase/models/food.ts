@@ -30,3 +30,4 @@ export interface FoodCustomization {
   author: string;
 }
 
+export const FoodCollectionName = "foods";

@@ -13,8 +13,8 @@ export interface GeoInformation {
   // 234-9, Centumnam-daero, Haeundae-gu, Busan
   address: string;
   marker: {
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
   }
   // pseudo distance from my location in kilometers
   pseudoDistance: number;
@@ -26,7 +26,8 @@ export interface Restaurant {
   geoInformation: GeoInformation;
   searchKeywords: string[];
   robot: Robot;
-  products: Food[];
+  // separate query for food
+  foodIds: string[];
 }
 
 export const RestaurantCollectionName = "stores";
