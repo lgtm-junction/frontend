@@ -168,6 +168,10 @@ export default function Page({ params }: { params: { menuId: string } }) {
             )[0]!.options.map((option) => (
               <CustonItem key={option.id} option={option} />
             ))}
+          <div className="fixed inset-x-0 bottom-[40px] h-24 flex gap-4 p-4 text-white text-h2">
+            <button className="bg-gray-500 h-16 w-full">Cart</button>
+            <button className="bg-black h-16 w-full">Order</button>
+          </div>
         </div>
       </BottomSheets>
     </S.Container>
