@@ -21,7 +21,7 @@ export default function BottomSheets({
 
   useEffect(() => {
     const handleBottomSheet = () => {
-      setTop(window.innerHeight - 60);
+      setTop(window.innerHeight - 80);
       setBottom(window.innerHeight - initialTop);
     };
     handleBottomSheet();
