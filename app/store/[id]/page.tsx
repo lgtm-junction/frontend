@@ -9,7 +9,6 @@ export default function Page() {
       <S.Container>
         <div>
           <h1>가게 메인 페이지</h1>
-          <div>{JSON.stringify(ref?.current)}</div>
           <div>
             메인 로봇 사진or이미지 사용하는 로봇 모델/관리 등등 메뉴리스트
             가게정보
