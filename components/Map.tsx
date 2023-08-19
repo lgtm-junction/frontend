@@ -18,7 +18,7 @@ interface GeoPosition {
   longitude: number;
 }
 
-export interface MapProps extends React.PropsWithChildren {
+export interface MapProps {
   center: GeoPosition;
   zoom: number;
   markers?: GeoPosition[];
@@ -31,9 +31,7 @@ export const Map: React.FC<MapProps> = (props) => {
   if(!isLoaded) return null;
 
   return (
-    <NaverMap {...props}>
-      {props.markers?.map((marker) => <Marker key={JSON.stringify(marker)} position={marker} />)}
-    </NaverMap>
+    <NaverMap {...props} />
   );
 }
 
