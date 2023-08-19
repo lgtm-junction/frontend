@@ -3,7 +3,17 @@
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
-import Image from "next/image";
+
+const MENUS = [
+  {
+    id: 1,
+    name: "Cafe Latte",
+    price: 5000,
+    image: "/cafe.jpg",
+    customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  },
+];
+
 export default function Page() {
   return (
     <>
@@ -43,24 +53,42 @@ export default function Page() {
       </S.Container>
       <BottomSheets height={550}>
         <div className="w-full flex flex-col px-4">
-          <div className="flex gap-3 items-center border-b border-b-gray-100 py-4">
-            <div className="w-20 h-20 border border-black">
-              <img src="/cafe.jpg" className="w-full h-full object-cover" />
-            </div>
+          {MENUS.map((menu) => (
+            <div
+              className="flex gap-3 items-center border-b border-b-gray-100 py-4"
+              key={menu.id}
+            >
+              <div className="w-20 h-20 border border-black">
+                <img src="/cafe.jpg" className="w-full h-full object-cover" />
+              </div>
 
-            <div className="flex flex-col">
-              <div className="text-strong">Cafe Latte</div>
-              <div className="text-p mb-2">₩ 50,000</div>
+              <div className="flex flex-col">
+                <div className="text-strong">{menu.name}</div>
+                <div className="text-p mb-2">
+                  ₩ {menu.price.toLocaleString()}
+                </div>
 
-              <div className="flex gap-2 items-center">
-                <Icons.RobotArm className="w-8 h-8" />
-                <div>
-                  <div className="text-sm text-gray-500">Custom options</div>
-                  <div className="text-sm">Milk amount, Grinding, +2</div>
+                <div className="flex gap-2 items-center">
+                  <Icons.RobotArm className="w-8 h-8" />
+                  <div>
+                    <div className="text-sm text-gray-500">Custom options</div>
+                    <div className="text-sm">
+                      {menu.customOptions.slice(0, 2).map((option, i) => (
+                        <span
+                          key={i}
+                          className="after:content-[',_'] last-of-type:after:content-['']"
+                        >
+                          {option}
+                        </span>
+                      ))}
+                      {menu.customOptions.length > 2 &&
+                        `, +${menu.customOptions.length - 2}`}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </BottomSheets>
     </>
