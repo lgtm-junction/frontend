@@ -113,7 +113,9 @@ export default function Page() {
         close={openedCustom ? () => setOpenedCustom(null) : null}
       >
         <div className="px-4 py-4">
-          {openedCustom && <CustomList id={openedCustom} />}
+          {openedCustom && (
+            <CustomList id={openedCustom} close={() => setOpenedCustom(null)} />
+          )}
         </div>
       </BottomSheets>
     </S.Container>

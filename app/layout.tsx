@@ -8,6 +8,7 @@ import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import "./tailwindcss.css";
 import CartProvider from "@/context/useCart";
+import { BsCart } from "react-icons/bs";
 
 export default function RootLayout({
   children,
@@ -22,7 +23,11 @@ export default function RootLayout({
           <div
             className="fixed top-0 w-full max-w-[420px] h-screen pointer-events-none z-[101]"
             ref={ref}
-          />
+          >
+            <div className="absolute bottom-8 right-8 rounded-full bg-black w-16 h-16 flex items-center justify-center">
+              <BsCart size="28px" color="white" />
+            </div>
+          </div>
           <ContainerRefProvider containerRef={ref}>
             <AlertProvider>
               <CartProvider>

@@ -3,7 +3,13 @@ import CustomItem from "./Item";
 import { useCart } from "@/context/useCart";
 import { useState } from "react";
 
-export default function CustomList({ id }: { id: number }) {
+export default function CustomList({
+  id,
+  close,
+}: {
+  id: number;
+  close: () => void;
+}) {
   const { addCart } = useCart();
   const [item, setItem] = useState(
     CUSTOM.filter((custom) => custom.id === id)[0]!
@@ -31,7 +37,10 @@ export default function CustomList({ id }: { id: number }) {
       <div className="fixed inset-x-0 bottom-[40px] h-24 flex gap-4 p-4 text-white text-h2">
         <button
           className="bg-gray-500 h-16 w-full"
-          onClick={() => addCart(item)}
+          onClick={() => {
+            addCart(item);
+            close();
+          }}
         >
           Cart
         </button>
