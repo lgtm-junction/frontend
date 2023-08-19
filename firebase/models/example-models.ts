@@ -21,12 +21,13 @@ export const testRestaurant: Omit<Restaurant, "id"> = {
   foodIds: [],
 }
 
-export const testFood: Omit<Food, "id" | "customizations"> & { customizations: Omit<FoodCustomization, "id">[] } = {
+export const testFood: Omit<Food, "id"> = {
 // id: "rbKVdjTkqNAjfXghIDxH"
   name: "황금올리브치킨",
   basePrice: 20000,
   customizations: [
     {
+      id: "zicoyangnyum",
       name: "ZICO YANGNYUM",
       additionalPrice: 21000,
       tags: ["SWEET", "NUTS", "ZICO"],
