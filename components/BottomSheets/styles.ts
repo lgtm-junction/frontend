@@ -8,3 +8,8 @@ export const StyledSheet = styled(Sheet)`
 export const Backdrop = styled(Sheet.Backdrop)`
   background: none !important;
 `;
+
+export const SheetContainer = styled(Sheet.Container)`
+  box-shadow: 0 0 16px 6px rgba(0, 0, 0, 0.06), 0 0 8px 6px rgba(0, 0, 0, 0.12) !important;
+  border-radius: 32px 32px 0 0 !important;
+`;

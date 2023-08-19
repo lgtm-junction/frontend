@@ -33,13 +33,12 @@ export default function BottomSheets({
       initialSnap={1}
       ref={ref}
     >
-      <Sheet.Container>
+      <S.SheetContainer>
         <Sheet.Header />
         <Sheet.Content>
           <Sheet.Scroller>{children}ddd</Sheet.Scroller>
         </Sheet.Content>
-      </Sheet.Container>
-      <S.Backdrop onTap={() => snapTo(1)} />
+      </S.SheetContainer>
     </S.StyledSheet>
   ) : (
     <></>

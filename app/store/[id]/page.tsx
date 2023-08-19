@@ -2,9 +2,8 @@
 
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
-import { useContainerRef } from "@/context/useContainerRef";
+import Icons from "@/components/Icons";
 export default function Page() {
-  const { ref } = useContainerRef();
   return (
     <>
       <S.Container>
@@ -19,8 +18,27 @@ export default function Page() {
           <S.Link href="/store/1/order">주문 페이지</S.Link>
         </div>
       </S.Container>
-      <BottomSheets height={400}>
-        <div className="w-full"></div>
+      <BottomSheets height={550}>
+        <div className="w-full flex flex-col px-4">
+          <div className="flex gap-3 items-center border-b border-b-gray-100 py-4">
+            <div className="w-20 h-20 border border-black">
+              <img src="/cafe.jpg" className="w-full h-full object-cover" />
+            </div>
+
+            <div className="flex flex-col">
+              <div className="text-strong">Cafe Latte</div>
+              <div className="text-p mb-2">₩ 50,000</div>
+
+              <div className="flex gap-2 items-center">
+                <Icons.RobotArm className="w-8 h-8" />
+                <div>
+                  <div className="text-sm text-gray-500">Custom options</div>
+                  <div className="text-sm">Milk amount, Grinding, +2</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </BottomSheets>
     </>
   );
