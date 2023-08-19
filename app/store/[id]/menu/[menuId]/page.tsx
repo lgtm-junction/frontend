@@ -4,16 +4,14 @@ import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import { Divider } from "@/components/global/Divider";
 import Promotion from "@/components/global/Promotion";
-import { Octagon } from "@/components/octagon";
 import { MenuType } from "@/types/type";
-import { useCallback, useEffect, useState } from "react";
-import { convertValueAndUnit } from "@/utils/convert";
+import { useEffect, useState } from "react";
 import CustomOptionList from "@/components/Custom/OptionList";
 import { CUSTOM } from "@/constants/dummy";
 import CustomList from "@/components/Custom/List";
 
 const MENU: MenuType = {
-  id: 1,
+  id: "1",
   name: "Cafe Latte",
   description:
     "A cafe latte is a milk coffee that is a made up of one or two shots of espresso, steamed milk and a final, thin layer of frothed milk on top.",
@@ -24,10 +22,9 @@ const MENU: MenuType = {
 };
 
 export default function Page() {
-  const [openedCustom, setOpenedCustom] = useState<number | null>(null);
+  const [openedCustom, setOpenedCustom] = useState<string | null>(null);
   const [screenHeight, setScreenHeight] = useState(2000);
   const [menu, setMenu] = useState<MenuType>();
-
 
   useEffect(() => {
     setScreenHeight(window.innerHeight);

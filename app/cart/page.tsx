@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function Page() {
   const { cart } = useCart();
-  const [openedCustom, setOpenedCustom] = useState<number | null>(null);
+  const [openedCustom, setOpenedCustom] = useState<string | null>(null);
   const [screenHeight, setScreenHeight] = useState(2000);
   useEffect(() => {
     setScreenHeight(window.innerHeight);

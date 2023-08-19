@@ -2,13 +2,13 @@ import { CustomType } from "@/types/type";
 
 export const CUSTOM: CustomType[] = [
   {
-    id: 1,
+    id: "1",
     name: "ALMOND EXTRA",
     price: 5000,
     tags: ["SWEET", "NUTS"],
     options: [
       {
-        id: 1,
+        id: "1",
         name: "Almond Syrup",
         isBoolean: false,
         min: 0,
@@ -17,7 +17,7 @@ export const CUSTOM: CustomType[] = [
         value: 25,
       },
       {
-        id: 2,
+        id: "2",
         name: "Almond Slice",
         isBoolean: false,
         min: 0,
@@ -26,7 +26,7 @@ export const CUSTOM: CustomType[] = [
         value: 25,
       },
       {
-        id: 3,
+        id: "3",
         name: "Classic Syrup",
         isBoolean: false,
         min: 0,
@@ -35,7 +35,7 @@ export const CUSTOM: CustomType[] = [
         value: 0,
       },
       {
-        id: 4,
+        id: "4",
         name: "Oat milk instead of milk",
         isBoolean: true,
         min: 0,

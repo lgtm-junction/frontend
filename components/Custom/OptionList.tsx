@@ -7,13 +7,13 @@ export default function CustomOptionList({
   id,
   close,
 }: {
-  id: number;
+  id: string;
   close: () => void;
 }) {
   const { addCart } = useCart();
   const originalItem = CUSTOM.filter((custom) => custom.id === id)[0]!;
   const [item, setItem] = useState(originalItem);
-  const changeOption = (optionId: number, newValue: number) => {
+  const changeOption = (optionId: string, newValue: number) => {
     setItem((item) => {
       return {
         ...item,

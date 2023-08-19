@@ -11,7 +11,7 @@ export default function CustomList({
   isCart = false,
 }: {
   items: CustomType[];
-  setOpenedCustom: Dispatch<SetStateAction<number | null>>;
+  setOpenedCustom: Dispatch<SetStateAction<string | null>>;
   isCart?: boolean;
 }) {
   const { removeCart } = useCart();
