@@ -1,16 +1,17 @@
 "use client";
 
 import * as SS from "@/app/styles";
-import * as S from "./styles";
+import { Button } from "@/components/global/Button";
+import { Divider } from "@/components/global/Divider";
 import { Octagon } from "@/components/octagon";
 import { useAlert } from "@/context/useAlert";
-import { MdNavigateNext, MdPerson } from "react-icons/md";
 import { Session } from "next-auth";
-import { Divider } from "@/components/global/Divider";
+import { MdNavigateNext, MdPerson } from "react-icons/md";
+import * as S from "./styles";
 
 export default function MyPageView({ user }: { user: Session["user"] }) {
   const alertContext = useAlert();
-  const { setOpen } = alertContext;
+  const { openAlert, closeAlert } = alertContext;
 
   return (
     <SS.Container>
@@ -30,7 +31,17 @@ export default function MyPageView({ user }: { user: Session["user"] }) {
         </S.ProfileContainer>
         <Divider />
         <S.MenuListContainer>
-          <S.MenuListItem onClick={() => setOpen()} borderBottom>
+          <S.MenuListItem
+            onClick={() =>
+              openAlert(
+                <>
+                  <span>WIP</span>
+                  <Button onClick={closeAlert}>Close</Button>
+                </>
+              )
+            }
+            borderBottom
+          >
             <S.MenuTitle>Order history</S.MenuTitle>
             <MdNavigateNext size="24px" />
           </S.MenuListItem>

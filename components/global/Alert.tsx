@@ -1,13 +1,13 @@
 "use client";
 
+import { PropsWithChildren } from "react";
 import styled from "styled-components";
-import { Button } from "./Button";
 
 const AlertDiv = styled.div`
   position: absolute;
   width: 100%;
   height: 100vh;
-  z-index: 999999999999;
+  z-index: 999999999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,20 +36,18 @@ const Text = styled.div`
   letter-spacing: -0.2px;
 `;
 
-const Alert = (props: {
+interface Props {
   isOpen: boolean;
-  setIsOpen: (state: boolean) => void;
-}) => {
-  const { isOpen, setIsOpen } = props;
+}
+
+const Alert = (props: PropsWithChildren<Props>) => {
+  const { isOpen, children } = props;
 
   return (
     <>
       {isOpen && (
         <AlertDiv>
-          <AlertContainer>
-            <Text>WIP</Text>
-            <Button onClick={() => setIsOpen(false)}>Close</Button>
-          </AlertContainer>
+          <AlertContainer>{children}</AlertContainer>
         </AlertDiv>
       )}
     </>

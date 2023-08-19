@@ -3,8 +3,9 @@
 import * as S from "@/app/styles";
 import { Score, ScoreRow } from "@/components/Score";
 import { Button } from "@/components/global/Button";
+import { useAlert } from "@/context/useAlert";
 import { exampleCustoms } from "@/firebase/models/example-models";
-import { QuizGuess } from "@/types/type";
+import { CustomType, QuizGuess } from "@/types/type";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -50,7 +51,30 @@ const GuessButton = styled(Button)`
 
 const MAX_GUESS_COUNT = 5;
 
+const scoreEmoji = (score: number) => {
+  if (score >= 100) return "🟩";
+  if (score >= 75) return "🟨";
+  if (score >= 50) return "🟧";
+  if (score >= 0) return "🟥";
+  return "🟫";
+};
+
+const guessesToEmojiContent = (quiz: CustomType, guesses: QuizGuess[]) => {
+  return [
+    `Foodle ${guesses.length}/${MAX_GUESS_COUNT} ${quiz.name}`,
+    "",
+    ...guesses.map((guess) => {
+      const { score } = guess;
+      const guessResultEmoji = score === 100 ? "🥳" : "🤔";
+      return `${guessResultEmoji}${scoreEmoji(score)} ${score}pts`;
+    }),
+    "",
+    `http://localhost:3000/quiz/${quiz.id}`,
+  ].join("\n");
+};
+
 export default function Page({ params }: { params: { id: string } }) {
+  const { openAlert, closeAlert } = useAlert();
   const randomGuesses = () =>
     new Array(MAX_GUESS_COUNT)
       .fill(undefined)
@@ -75,21 +99,38 @@ export default function Page({ params }: { params: { id: string } }) {
   }, []);
 
   useEffect(() => {
-    if ((guesses[guesses.length - 1]?.score ?? 0) > 100) {
-      alert("You are a genius!");
+    const content = guessesToEmojiContent(custom, guesses);
+    const copyContent = () => {
+      navigator.clipboard.writeText(content);
+      openAlert("Copied!");
+    };
+    if ((guesses[guesses.length - 1]?.score ?? 0) >= 100) {
+      openAlert(
+        <>
+          <Button onClick={copyContent}>Copy</Button>
+          <Button onClick={closeAlert}>Close</Button>
+        </>
+      );
     } else if (guesses.length > MAX_GUESS_COUNT - 1) {
-      alert("You are a fool!");
+      openAlert(
+        <>
+          <Button onClick={copyContent}>Copy</Button>
+          <Button onClick={closeAlert}>Close</Button>
+        </>
+      );
       setGuesses([]);
     }
-  }, [guesses]);
+  }, [closeAlert, guesses, openAlert]);
 
   const doGuess = useCallback(() => {
-    // 점수 = min(100, 110 - (오차 ** 2의 합(%)) / 파라미터 수) )
+    // 점수 = min(100, 110 - (오차의 합(%)) / 파라미터 수) )
     const distances = custom.options.map((option, i) => {
       const optionDomain = Math.max(1, (option.max || 0) - (option.min || 0));
       const guessedValue = guessingValue[i] ?? optionDomain / 2;
-      const diffRatio = Math.abs(guessedValue - option.value) / optionDomain;
-      return diffRatio * diffRatio * 100;
+      const diffRatio = Math.min(
+        (2 * Math.abs(guessedValue - option.value)) / optionDomain
+      );
+      return diffRatio * 100;
     });
 
     const score = Math.floor(

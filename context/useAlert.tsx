@@ -1,8 +1,15 @@
 import Alert from "@/components/global/Alert";
-import React, { PropsWithChildren, useContext, useState } from "react";
+import React, {
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 
 export interface AlertContextType {
-  setOpen: () => void;
+  openAlert: (children?: ReactNode) => void;
+  closeAlert: () => void;
 }
 
 export const AlertContext = React.createContext<AlertContextType>(
@@ -11,15 +18,24 @@ export const AlertContext = React.createContext<AlertContextType>(
 
 export const AlertProvider: React.FC<PropsWithChildren> = (props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [children, setChildren] = useState<ReactNode>(null);
 
-  const setOpen = () => {
+  const handleOpenAlert = useCallback((children?: ReactNode) => {
+    setChildren(children);
     setIsOpen(true);
-  };
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    setChildren(null);
+  }, []);
 
   return (
-    <AlertContext.Provider value={{ setOpen }}>
+    <AlertContext.Provider
+      value={{ openAlert: handleOpenAlert, closeAlert: handleClose }}
+    >
       {props.children}
-      <Alert isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Alert isOpen={isOpen}>{children}</Alert>
     </AlertContext.Provider>
   );
 };
