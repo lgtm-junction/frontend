@@ -8,26 +8,28 @@ import { useContainerRef } from "@/context/useContainerRef";
 export default function BottomSheets({
   children,
   initialTop,
+  close = null,
 }: {
   children: ReactNode;
   initialTop: number;
+  close?: (() => void) | null;
 }) {
   const ref = useRef<SheetRef>();
   const snapTo = (i: number) => ref.current?.snapTo(i);
-  const [top, setTop] = useState(0);
-  const [bottom, setBottom] = useState(0);
+  const [top, setTop] = useState(2000);
+  const [bottom, setBottom] = useState(2000);
 
   const { ref: containerRef } = useContainerRef();
 
   useEffect(() => {
     const handleBottomSheet = () => {
-      setTop(window.innerHeight - 80);
+      setTop(window.innerHeight - 60);
       setBottom(window.innerHeight - initialTop);
     };
     handleBottomSheet();
     window.addEventListener("resize", handleBottomSheet);
     return () => window.removeEventListener("resize", handleBottomSheet);
-  }, []);
+  }, [initialTop]);
 
   return containerRef && containerRef.current ? (
     <S.StyledSheet
@@ -46,6 +48,12 @@ export default function BottomSheets({
           <Sheet.Scroller>{children}</Sheet.Scroller>
         </Sheet.Content>
       </S.SheetContainer>
+      <S.SheetBackdrop
+        onTap={() => {
+          if (close) close();
+        }}
+        isIgnored={close === null}
+      />
     </S.StyledSheet>
   ) : (
     <></>

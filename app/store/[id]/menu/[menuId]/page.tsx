@@ -1,9 +1,11 @@
+"use client";
+
 import * as S from "@/app/styles";
-import Icons from "@/components/Icons";
+import BottomSheets from "@/components/BottomSheets";
 import { Divider } from "@/components/global/Divider";
 import Promotion from "@/components/global/Promotion";
 import { Octagon } from "@/components/octagon";
-import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
 
 const MENU = {
   id: 1,
@@ -42,6 +44,22 @@ const CUSTOM = [
 ];
 
 export default function Page({ params }: { params: { menuId: string } }) {
+  const [openedCustom, setOpenedCustom] = useState<number | null>(null);
+
+  const handleBackspace = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Backspace" && openedCustom) {
+        e.preventDefault();
+        e.stopPropagation();
+        setOpenedCustom(null);
+      }
+    },
+    [openedCustom]
+  );
+  useEffect(() => {
+    window.addEventListener("keydown", handleBackspace);
+    return () => window.removeEventListener("keydown", handleBackspace);
+  }, [handleBackspace]);
   return (
     <S.Container>
       <div className="w-[calc(100%+32px)] h-64 relative -translate-x-4 -mt-4">
@@ -60,10 +78,10 @@ export default function Page({ params }: { params: { menuId: string } }) {
           <div className="text-strong mt-4 my-2">Customs</div>
           <Promotion />
           {CUSTOM.map((custom) => (
-            <Link
-              href={`./${params.menuId}/custom`}
-              className="flex gap-4 border-b border-b-gray-100 last-of-type:border-b-transparent py-4"
+            <div
+              className="flex gap-4 border-b border-b-gray-100 last-of-type:border-b-transparent py-4 cursor-pointer"
               key={custom.id}
+              onClick={() => setOpenedCustom(custom.id)}
             >
               <Octagon
                 backgroundImage={custom.author.image}
@@ -90,10 +108,16 @@ export default function Page({ params }: { params: { menuId: string } }) {
                 </div>
                 <div className="mt-2 text-gray-500">@{custom.author.id}</div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
+      <BottomSheets
+        initialTop={openedCustom ? 100 : window.innerHeight}
+        close={openedCustom ? () => setOpenedCustom(null) : null}
+      >
+        aasdfasdadsf
+      </BottomSheets>
     </S.Container>
   );
 }

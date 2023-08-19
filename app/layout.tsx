@@ -17,10 +17,11 @@ export default function RootLayout({
   return (
     <html data-theme="light">
       <body className="min-h-screen h-full">
-        <div
-          className="relative w-full max-w-[420px] min-h-screen h-full m-0 mx-auto flex flex-col flex-1 border"
-          ref={ref}
-        >
+        <div className="relative w-full max-w-[420px] min-h-screen h-full m-0 mx-auto flex flex-col flex-1 border">
+          <div
+            className="fixed top-0 w-full max-w-[420px] h-screen z-10 pointer-events-none"
+            ref={ref}
+          />
           <ContainerRefProvider containerRef={ref}>
             <AlertProvider>
               <StyledComponentsRegistry>
