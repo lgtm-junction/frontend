@@ -9,28 +9,30 @@ import { CustomRecipe } from "@/components/global/CustomRecipe";
 import { useEffect, useState } from "react";
 import { getFoods } from "@/firebase/getData";
 import { FoodCustomization } from "@/firebase/models/food";
+import Link from "next/link";
 
 type FoodCustomizationWithFinalPrice = FoodCustomization & {
-  finalPrice: number
-}
+  finalPrice: number;
+};
 
 export default function Home() {
-
-  const [ customizations, setCustomizations ] = useState<FoodCustomizationWithFinalPrice[]>([]);
+  const [customizations, setCustomizations] = useState<
+    FoodCustomizationWithFinalPrice[]
+  >([]);
 
   useEffect(() => {
     (async () => {
       // fetch all customizations
       const foods = await getFoods();
-      const foodCustomizations = foods.flatMap(food =>
-        food.customizations.map(customization => ({
+      const foodCustomizations = foods.flatMap((food) =>
+        food.customizations.map((customization) => ({
           ...customization,
           finalPrice: customization.additionalPrice + food.basePrice,
-        })
-      ))
-      setCustomizations(foodCustomizations)
-    })()
-  }, [])
+        }))
+      );
+      setCustomizations(foodCustomizations);
+    })();
+  }, []);
 
   return (
     <S.Container>
@@ -50,16 +52,17 @@ export default function Home() {
           ))}
         </div>
         <Divider />
-        <div className="bg-black px-4 py-3 text-xl text-white font-semibold flex justify-between">
+        <Link
+          href="/nearby"
+          className="bg-black px-4 py-3 text-xl text-white font-semibold flex justify-between"
+        >
           Search Nearby
           <MdLocationOn />
-        </div>
+        </Link>
         <div>
-          {
-            customizations.map((customization, idx) => (
-              <CustomRecipe key={customization.id} {...customization} />
-            ))
-          }
+          {customizations.map((customization, idx) => (
+            <CustomRecipe key={customization.id} {...customization} />
+          ))}
         </div>
       </div>
     </S.Container>
