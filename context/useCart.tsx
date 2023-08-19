@@ -5,7 +5,8 @@ import {
   ReactNode,
   createContext,
   useCallback,
-  useContext
+  useContext,
+  useMemo,
 } from "react";
 import useCachedState from "./useCachedState";
 
@@ -43,8 +44,13 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
     [setCart]
   );
 
+  const contextValues = useMemo(
+    () => ({ cart, addCart, removeCart }),
+    [cart, addCart, removeCart]
+  );
+
   return (
-    <CartContext.Provider value={{ cart, addCart, removeCart }}>
+    <CartContext.Provider value={contextValues}>
       {children}
     </CartContext.Provider>
   );

@@ -12,9 +12,7 @@ import { MdLocationOn } from "react-icons/md";
 import * as S from "./styles";
 
 export default function Home() {
-  const [customizations, setCustomizations] = useState<
-    CustomType[]
-  >([]);
+  const [customizations, setCustomizations] = useState<CustomType[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -44,7 +42,7 @@ export default function Home() {
         <Divider />
         <Link
           href="/nearby"
-          className="bg-black px-4 py-3 text-xl text-white font-semibold flex justify-between"
+          className="bg-black px-4 py-3 text-xl text-white font-semibold flex justify-between items-center"
         >
           Search Nearby
           <MdLocationOn />

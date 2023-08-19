@@ -1,18 +1,23 @@
 import { getCachedValue, setCacheValue } from "@/utils/cache";
 import {
-    Dispatch,
-    SetStateAction,
-    useCallback,
-    useEffect,
-    useState,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useState,
 } from "react";
+import { useGranularEffect } from "./useGranularEffect";
 
 const useCachedState = <T,>(key: string, defaultValue: T) => {
   const [value, setValue] = useState<T>(defaultValue);
 
-  useEffect(() => {
-    setValue(getCachedValue<T>(key) || defaultValue);
-  }, [defaultValue, key]);
+  useGranularEffect(
+    () => {
+      setValue(getCachedValue<T>(key) || defaultValue);
+    },
+    [key],
+    [defaultValue]
+  );
 
   const handleSetValue: Dispatch<SetStateAction<T>> = useCallback(
     (newValue: T | SetStateAction<T>) => {
@@ -30,7 +35,12 @@ const useCachedState = <T,>(key: string, defaultValue: T) => {
     [key]
   );
 
-  return [value, handleSetValue] as const;
+  const stateValue = useMemo(
+    () => [value, handleSetValue] as const,
+    [handleSetValue, value]
+  );
+
+  return stateValue;
 };
 
 export default useCachedState;
