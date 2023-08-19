@@ -2,7 +2,7 @@ import { OptionType } from "@/types/type";
 import { useEffect, useState } from "react";
 import cc from "classcat";
 
-export default function CustonItem({
+export default function CustomOptionItem({
   option,
   changeOption,
 }: {

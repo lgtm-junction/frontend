@@ -1,7 +1,7 @@
 "use client";
 
 import Sheet, { SheetRef } from "react-modal-sheet";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import * as S from "./styles";
 import { useContainerRef } from "@/context/useContainerRef";
 
@@ -20,6 +20,19 @@ export default function BottomSheets({
   const [bottom, setBottom] = useState(2000);
 
   const { ref: containerRef } = useContainerRef();
+
+  const handleBackspace = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Backspace" && close) {
+      e.preventDefault();
+      e.stopPropagation();
+      close();
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleBackspace);
+    return () => window.removeEventListener("keydown", handleBackspace);
+  }, [handleBackspace]);
 
   useEffect(() => {
     const handleBottomSheet = () => {

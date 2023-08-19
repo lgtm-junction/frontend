@@ -3,9 +3,12 @@
 import { CustomType } from "@/types/type";
 import { ReactNode, createContext, useContext, useState } from "react";
 
+interface CartItemType extends CustomType {
+  isCustomized: boolean;
+}
 interface CartProps {
-  cart: CustomType[];
-  addCart: (item: CustomType) => void;
+  cart: CartItemType[];
+  addCart: (item: CartItemType) => void;
   removeCart: (index: number) => void;
 }
 
@@ -16,8 +19,8 @@ export const CartContext = createContext<CartProps>({
 });
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CustomType[]>([]);
-  const addCart = (item: CustomType) => {
+  const [cart, setCart] = useState<CartItemType[]>([]);
+  const addCart = (item: CartItemType) => {
     setCart((cart) => [...cart, item]);
   };
   const removeCart = (index: number) => {

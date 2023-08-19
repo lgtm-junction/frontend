@@ -1,51 +1,75 @@
-import { CUSTOM } from "@/constants/dummy";
-import CustomItem from "./Item";
+import { convertValueAndUnit } from "@/utils/convert";
+import { Octagon } from "../octagon";
+import { Dispatch, SetStateAction } from "react";
+import { MdClose } from "react-icons/md";
+import { CustomType } from "@/types/type";
 import { useCart } from "@/context/useCart";
-import { useState } from "react";
 
 export default function CustomList({
-  id,
-  close,
+  items,
+  setOpenedCustom,
+  isCart = false,
 }: {
-  id: number;
-  close: () => void;
+  items: CustomType[];
+  setOpenedCustom: Dispatch<SetStateAction<number | null>>;
+  isCart?: boolean;
 }) {
-  const { addCart } = useCart();
-  const [item, setItem] = useState(
-    CUSTOM.filter((custom) => custom.id === id)[0]!
-  );
-  const changeOption = (optionId: number, newValue: number) => {
-    setItem((item) => {
-      return {
-        ...item,
-        options: item.options.map((option) => {
-          if (option.id === optionId) return { ...option, value: newValue };
-          else return option;
-        }),
-      };
-    });
-  };
+  const { removeCart } = useCart();
   return (
     <>
-      {item.options.map((option) => (
-        <CustomItem
-          key={option.id}
-          option={option}
-          changeOption={(newValue) => changeOption(option.id, newValue)}
-        />
-      ))}
-      <div className="fixed inset-x-0 bottom-[40px] h-24 flex gap-4 p-4 text-white text-h2">
-        <button
-          className="bg-gray-500 h-16 w-full"
-          onClick={() => {
-            addCart(item);
-            close();
-          }}
+      {items.map((custom, i) => (
+        <div
+          className="flex relative gap-4 border-b border-b-gray-100 last-of-type:border-b-transparent py-4 cursor-pointer"
+          key={custom.id}
+          onClick={() => setOpenedCustom(custom.id)}
         >
-          Cart
-        </button>
-        <button className="bg-black h-16 w-full">Order</button>
-      </div>
+          <Octagon
+            backgroundImage={custom.author.image}
+            width="80px"
+            className="bg-cover shrink-0"
+          />
+
+          <div className="flex flex-col">
+            <div className="text-strong">{custom.name}</div>
+            <div className="text-p mb-2">₩ {custom.price.toLocaleString()}</div>
+
+            <div className="text-small">
+              <div className="text-gray-500">Custom options</div>
+              <ul className="list-disc list-inside">
+                {custom.options
+                  .filter((option) => option.value > 0)
+                  .slice(0, 2)
+                  .map((option, i) => (
+                    <li key={i}>
+                      {option.name}{" "}
+                      {convertValueAndUnit(
+                        option.value,
+                        option.unit,
+                        option.isBoolean
+                      )}
+                    </li>
+                  ))}
+              </ul>
+              {custom.options.length > 2 && (
+                <div>+ {custom.options.length - 2} More</div>
+              )}
+            </div>
+            <div className="mt-2 text-gray-500">@{custom.author.id}</div>
+          </div>
+
+          {isCart && (
+            <button
+              className="absolute right-4 top-4"
+              onClick={(e) => {
+                e.stopPropagation();
+                removeCart(i);
+              }}
+            >
+              <MdClose size="24px" color="black" />
+            </button>
+          )}
+        </div>
+      ))}
     </>
   );
 }

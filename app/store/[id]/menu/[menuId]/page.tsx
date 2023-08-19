@@ -8,8 +8,9 @@ import { Octagon } from "@/components/octagon";
 import { MenuType } from "@/types/type";
 import { useCallback, useEffect, useState } from "react";
 import { convertValueAndUnit } from "@/utils/convert";
-import CustomList from "@/components/Custom/List";
+import CustomOptionList from "@/components/Custom/OptionList";
 import { CUSTOM } from "@/constants/dummy";
+import CustomList from "@/components/Custom/List";
 
 const MENU: MenuType = {
   id: 1,
@@ -32,20 +33,6 @@ export default function Page() {
     setScreenHeight(window.innerHeight);
   }, []);
 
-  const handleBackspace = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Backspace" && openedCustom) {
-        e.preventDefault();
-        e.stopPropagation();
-        setOpenedCustom(null);
-      }
-    },
-    [openedCustom]
-  );
-  useEffect(() => {
-    window.addEventListener("keydown", handleBackspace);
-    return () => window.removeEventListener("keydown", handleBackspace);
-  }, [handleBackspace]);
   return (
     <S.Container>
       <div className="w-[calc(100%+32px)] h-64 relative -translate-x-4 -mt-4">
@@ -63,49 +50,7 @@ export default function Page() {
         <div className="flex flex-col gap-3">
           <div className="text-strong mt-4 my-2">Customs</div>
           <Promotion />
-          {CUSTOM.map((custom) => (
-            <div
-              className="flex gap-4 border-b border-b-gray-100 last-of-type:border-b-transparent py-4 cursor-pointer"
-              key={custom.id}
-              onClick={() => setOpenedCustom(custom.id)}
-            >
-              <Octagon
-                backgroundImage={custom.author.image}
-                width="80px"
-                className="bg-cover shrink-0"
-              />
-
-              <div className="flex flex-col">
-                <div className="text-strong">{custom.name}</div>
-                <div className="text-p mb-2">
-                  ₩ {custom.price.toLocaleString()}
-                </div>
-
-                <div className="text-small">
-                  <div className="text-gray-500">Custom options</div>
-                  <ul className="list-disc list-inside">
-                    {custom.options
-                      .filter((option) => option.value > 0)
-                      .slice(0, 2)
-                      .map((option, i) => (
-                        <li key={i}>
-                          {option.name}{" "}
-                          {convertValueAndUnit(
-                            option.value,
-                            option.unit,
-                            option.isBoolean
-                          )}
-                        </li>
-                      ))}
-                  </ul>
-                  {custom.options.length > 2 && (
-                    <div>+ {custom.options.length - 2} More</div>
-                  )}
-                </div>
-                <div className="mt-2 text-gray-500">@{custom.author.id}</div>
-              </div>
-            </div>
-          ))}
+          <CustomList items={CUSTOM} setOpenedCustom={setOpenedCustom} />
         </div>
       </div>
       <BottomSheets
@@ -114,7 +59,10 @@ export default function Page() {
       >
         <div className="px-4 py-4">
           {openedCustom && (
-            <CustomList id={openedCustom} close={() => setOpenedCustom(null)} />
+            <CustomOptionList
+              id={openedCustom}
+              close={() => setOpenedCustom(null)}
+            />
           )}
         </div>
       </BottomSheets>
