@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const PromotionContainer = styled.div`
-  width: 342px;
+  width: 100%;
   height: 128px;
   border-radius: 8px;
   background: linear-gradient(270deg, #000 0%, rgba(0, 0, 0, 0) 100%),
