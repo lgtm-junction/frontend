@@ -30,14 +30,13 @@ const CUSTOM = [
   },
   {
     id: 2,
-    name: "ALMOND EXTRA",
+    name: "VANILA EXTRA",
     price: 5000,
     tags: ["SWEET", "NUTS"],
-    options: ["Almond syrup × 9", "Almond slice × 5", "Almond slice × 5"],
+    options: ["Vanila syrup × 2", "Classic syrup × 1"],
     author: {
-      id: "shiftpsh",
-      image:
-        "https://pbs.twimg.com/profile_images/1559136628609732608/hoYcE2w6_400x400.jpg",
+      id: "havana",
+      image: "https://images.unsplash.com/photo-1475274047050-1d0c0975c63e",
     },
   },
 ];
@@ -63,7 +62,7 @@ export default function Page({ params }: { params: { menuId: string } }) {
           {CUSTOM.map((custom) => (
             <Link
               href={`./${params.menuId}/custom`}
-              className="flex gap-4 border-b border-b-gray-100 py-4"
+              className="flex gap-4 border-b border-b-gray-100 last-of-type:border-b-transparent py-4"
               key={custom.id}
             >
               <Octagon
