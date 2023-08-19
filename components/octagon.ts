@@ -10,6 +10,7 @@ export const Octagon = styled.div<{ width: string; backgroundImage?: string }>`
   height: ${(props) => props.width};
   background-color: #e2e7e9;
   background-image: url("${(props) => props.backgroundImage}");
+  background-size: cover;
 
   clip-path: polygon(
     28% 0,
