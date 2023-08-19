@@ -63,7 +63,7 @@ export default function Page() {
           ))}
         </div>
         <RecentPresetItemContainer>
-          <RecentText>Recent preset orders</RecentText>
+          <RecentText>My presets</RecentText>
           {["Almond Extra", "Vanilla Extra", "Shiftpsh Latte"].map((title) => (
             <RecentPresetItem key={title}>
               <RecentPresetTitleContainer>
@@ -75,7 +75,7 @@ export default function Page() {
           ))}
         </RecentPresetItemContainer>
         <RecentPresetItemContainer>
-          <RecentText>Frequent preset orders</RecentText>
+          <RecentText>Shared presets</RecentText>
           {["Almond Extra", "Vanilla Extra", "Shiftpsh Latte"].map((title) => (
             <RecentPresetItem key={title}>
               <RecentPresetTitleContainer>
