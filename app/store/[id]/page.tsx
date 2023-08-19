@@ -5,9 +5,9 @@ import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
 import { getDocument, getMenus } from "@/firebase/getData";
 import {
-  RestaurantType,
-  RestaurantCollectionName,
   MenuType,
+  RestaurantCollectionName,
+  RestaurantType,
 } from "@/types/type";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -37,7 +37,7 @@ export default function Page({ params }: { params: { id: string } }) {
         menus,
       });
     })();
-  }, []);
+  }, [params.id]);
 
   return (
     <>
