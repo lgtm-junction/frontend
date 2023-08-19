@@ -2,6 +2,8 @@ import Map from "@/components/Map";
 import BottomSheets from "@/components/BottomSheets";
 import * as S from "./styles";
 import { Search } from "@/components/global/Search";
+import { MdLocationOn } from "react-icons/md";
+import { Divider } from "@/components/global/Divider";
 
 const bexcoLatLng = { latitude: 35.1689766, longitude: 129.1360411 };
 
@@ -9,6 +11,12 @@ export default function Home() {
   return (
     <S.Container>
       <Search />
+      <Divider />
+      <div className="bg-black px-4 py-3 text-xl text-white font-semibold flex justify-between">
+        Search Nearby
+        <MdLocationOn />
+      </div>
+      <Divider />
       <h1>메인 페이지</h1>
       <div>
         지도- 근처 가게들 볼 수 있음 (팝업) <br />
