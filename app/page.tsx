@@ -13,7 +13,7 @@ export default function Home() {
       <div>
         지도- 근처 가게들 볼 수 있음 (팝업) <br />
         <Map
-          style={{ width: 500, height: 400 }}
+          style={{ width: `100%`, height: 400 }}
           center={bexcoLatLng}
           zoom={13}
         />
