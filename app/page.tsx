@@ -25,10 +25,10 @@ export default function Home() {
       // fetch all customizations
       const foods = await getAllFoods();
       const foodCustomizations = foods.flatMap((food) =>
-        food.customizations.map((customization) => ({
+        food.customizations?.map((customization) => ({
           ...customization,
           foodPrice: food.price,
-        }))
+        })) ?? []
       );
       setCustomizations(foodCustomizations);
     })();
