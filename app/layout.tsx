@@ -1,43 +1,42 @@
-"use client";
-
-import { TopNav } from "@/components/global/TopNav";
-import { AlertProvider } from "@/context/useAlert";
-import ContainerRefProvider from "@/context/useContainerRef";
-import { useRef } from "react";
 import "./globals.css";
-import StyledComponentsRegistry from "./registry";
 import "./tailwindcss.css";
 import CartProvider from "@/context/useCart";
-import CartButton from "@/components/global/CartButton";
 
-export default function RootLayout({
+import { Session } from "next-auth";
+import { headers } from "next/headers";
+import Container from "./container";
+import AuthContext from "@/context/useSession";
+
+async function getSession(cookie: string): Promise<Session> {
+  const response = await fetch(
+    `${process.env.LOCAL_AUTH_URL}/api/auth/session`,
+    {
+      headers: {
+        cookie,
+      },
+    }
+  );
+
+  const session = await response.json();
+
+  return Object.keys(session).length > 0 ? session : null;
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const session = await getSession(headers().get("cookie") ?? "");
   return (
     <html data-theme="light">
-      <CartProvider>
-        <body className="min-h-screen h-full">
-          <div className="relative w-full max-w-[420px] min-h-screen h-full m-0 mx-auto flex flex-col flex-1 border">
-            <div
-              className="fixed top-0 w-full max-w-[420px] h-screen pointer-events-none z-[101]"
-              ref={ref}
-            >
-              <CartButton />
-            </div>
-            <ContainerRefProvider containerRef={ref}>
-              <AlertProvider>
-                <StyledComponentsRegistry>
-                  <TopNav />
-                  <div className="h-full p-4">{children}</div>
-                </StyledComponentsRegistry>
-              </AlertProvider>
-            </ContainerRefProvider>
-          </div>
-        </body>
-      </CartProvider>
+      <AuthContext session={session}>
+        <CartProvider>
+          <body className="min-h-screen h-full">
+            <Container>{children}</Container>
+          </body>
+        </CartProvider>
+      </AuthContext>
     </html>
   );
 }
