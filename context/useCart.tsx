@@ -1,7 +1,10 @@
 "use client";
 
 import { CustomType } from "@/types/type";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ReactNode, createContext, useContext } from "react";
+import useCachedState from "./useCachedState";
+
+const CACHE_KEY_CART = "cart";
 
 interface CartItemType extends CustomType {
   isCustomized: boolean;
@@ -19,7 +22,7 @@ export const CartContext = createContext<CartProps>({
 });
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItemType[]>([]);
+  const [cart, setCart] = useCachedState<CartItemType[]>(CACHE_KEY_CART, []);
   const addCart = (item: CartItemType) => {
     setCart((cart) => [...cart, item]);
   };
