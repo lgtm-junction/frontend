@@ -10,7 +10,7 @@ const MENUS = [
     id: 1,
     name: "Cafe Latte",
     price: 5000,
-    image: "/cafe.jpg",
+    image: "/cafeLatte.jpeg",
     customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
   },
 ];
