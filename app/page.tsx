@@ -3,7 +3,7 @@ import { CustomRecipe } from "@/components/global/CustomRecipe";
 import { Divider } from "@/components/global/Divider";
 import Promotion from "@/components/global/Promotion";
 import { Search } from "@/components/global/Search";
-import { Octagon } from "@/components/octagon";
+import { Octagon, OctagonFader } from "@/components/octagon";
 import { CustomCollectionName, getDocuments } from "@/firebase/getData";
 import { CustomType } from "@/types/type";
 import Link from "next/link";
@@ -35,7 +35,8 @@ export default function Home() {
               $backgroundImage={`${item}.jpg`}
               className="flex justify-center items-center text-white text-2xl font-bold capitalize"
             >
-              {item}
+              <OctagonFader />
+              <span style={{ position: "relative" }}>{item}</span>
             </Octagon>
           ))}
         </div>
