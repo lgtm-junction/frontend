@@ -27,7 +27,7 @@ export interface CustomOptionType {
   id: string;
   name: string;
   // 이게 켜져있으면 min 0 max 1인 온오프로 취급
-  isBoolean: boolean;
+  isBoolean?: boolean;
   min?: number;
   max?: number;
   unit: string;
