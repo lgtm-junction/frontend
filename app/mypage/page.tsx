@@ -105,7 +105,7 @@ export default function Page() {
             <MdNavigateNext size="24px" />
           </MenuListItem>
           <MenuListItem>
-            <MenuTitle>My custom preseets</MenuTitle>
+            <MenuTitle>My custom presets</MenuTitle>
             <MdNavigateNext size="24px" />
           </MenuListItem>
         </MenuListContainer>
