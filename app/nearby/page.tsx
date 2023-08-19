@@ -3,6 +3,7 @@ import BottomSheets from "@/components/BottomSheets";
 import Map from "@/components/Map";
 import Link from "next/link";
 import Icons from "@/components/Icons";
+import { MdLocationOn } from "react-icons/md";
 export default function Nearby() {
   const bexcoLatLng = { latitude: 35.1689766, longitude: 129.1360411 };
   const MENUS = [
@@ -58,11 +59,17 @@ export default function Nearby() {
   ];
   return (
     <S.Container>
-      <Map
-        style={{ width: `100%`, height: 400 }}
-        center={bexcoLatLng}
-        zoom={13}
-      />
+      <div className="relative">
+        <button className="absolute left-1/2 -translate-x-1/2 top-5 z-40 bg-black text-white text-sm font-bold flex gap-2 justify-center items-center w-fit px-2">
+          <MdLocationOn />
+          Search this area
+        </button>
+        <Map
+          style={{ width: `100%`, height: 400 }}
+          center={bexcoLatLng}
+          zoom={13}
+        />
+      </div>
       <BottomSheets initialTop={350}>
         <div className="w-full flex flex-col px-4">
           {/* todo: fix href */}
