@@ -1,4 +1,4 @@
-import { MenuType, RestaurantType } from "@/types/type"
+import { CustomType, MenuType, RestaurantType } from "@/types/type"
 
 export const testMenus: Omit<MenuType, "id">[] = [
   {
@@ -131,3 +131,57 @@ export const testRestaurants: Omit<RestaurantType, "id">[] = [
     menuIds: [],
   },
 ]
+
+
+export const exampleCustoms: CustomType = {
+  id: "customTypeTest",
+  name: "Almond Extra",
+  author: {
+    id: "shiftpsh",
+    image: "/coffee.jpg",
+  },
+  tags: [],
+  price: 0,
+  options: [
+    {
+      id: "1",
+      name: "Maple Syrup (pump)",
+      min: 0,
+      max: 100,
+      unit: "pump",
+      value: 10,
+    },
+    {
+      id: "2",
+      name: "Mango Syrup (pump)",
+      min: 0,
+      max: 100,
+      unit: "pump",
+      value: 49,
+    },
+    {
+      id: "3",
+      name: "Orange Syrup (pump)",
+      min: 0,
+      max: 100,
+      unit: "pump",
+      value: 90,
+    },
+    {
+      id: "4",
+      name: "Busan Syrup (pump)",
+      min: 0,
+      max: 100,
+      unit: "pump",
+      value: 47,
+    },
+    {
+      id: "5",
+      name: "Apple Syrup (pump)",
+      min: 0,
+      max: 100,
+      unit: "pump",
+      value: 33,
+    },
+  ]
+}

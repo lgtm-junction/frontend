@@ -3,6 +3,9 @@
 import * as S from "@/app/styles";
 import { Score, ScoreRow } from "@/components/Score";
 import { Button } from "@/components/global/Button";
+import { exampleCustoms } from "@/firebase/models/example-models";
+import { QuizGuess } from "@/types/type";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CoverImage = styled.div<{ url: string }>`
@@ -45,43 +48,99 @@ const GuessButton = styled(Button)`
   bottom: 16px;
 `;
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
+
+  const MAX_GUESS_COUNT = 5;
+  const randomGuesses = () => new Array(5).fill(undefined).map(() => ({ score: Math.floor(Math.random() * 101) }))
+
+  const [guesses, setGuesses] = useState<QuizGuess[]>([])
+  const [randomDummyGuesses, setRandomDummyGuesses] = useState<QuizGuess[]>(randomGuesses())
+
+  const [guessingValue, setGuessingValue] = useState<number[]>([])
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRandomDummyGuesses(randomGuesses());
+    }, 100);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+
+    if ((guesses[guesses.length - 1]?.score ?? 0) > 100) {
+      alert("You are a genius!")
+    } else if (guesses.length > MAX_GUESS_COUNT - 1) {
+      alert("You are a fool!")
+      setGuesses([])
+    }
+
+  }, [guesses])
+
+  const doGuess = useCallback(() => {
+
+    // 점수 = min(100, 110 - (오차의 합(%)) / 파라미터 수) )
+    const distances = custom.options.map((option, i) => {
+      const guessedValue = guessingValue[i] ?? ((option.max ?? 0) - (option.min ?? 0)) / 2
+      return Math.abs(guessedValue - option.value) / Math.max(guessedValue, option.value) * 100
+    })
+
+    const score = Math.floor(Math.min(100, 110 - (distances.reduce((a, b) => a + b, 0) / custom.options.length)))
+    setGuesses((prev) => [...prev, { score, guessedValues: guessingValue }])
+
+  }, [guessingValue]);
+
+  const custom = exampleCustoms
+
   return (
     <>
       <S.Container>
         <CoverImage url="/almonds.png" />
         <div style={{ height: 24 }} />
-        <strong>Almond Extra</strong>
+        <strong>{custom.name}</strong>
         <p
           style={{
             color: "#778288",
           }}
         >
-          Guess 1/5
+          Guess {guesses.length + 1}/{MAX_GUESS_COUNT}
         </p>
         <div style={{ height: 16 }} />
         <ScoreRow>
           {new Array(5).fill(undefined).map((_, i) => (
-            <Score key={i} score={Math.floor(Math.random() * 101)} />
+            <Score key={i} score={(guesses[i] ?? randomDummyGuesses[i] ?? { score: 0 }).score} />
           ))}
         </ScoreRow>
         <QuizContainer>
-          {new Array(5).fill(undefined).map((_, i) => (
+          {custom.options.map((option, i) => (
             <QuizSliderItem key={i}>
-              <strong>Syrup (pumps)</strong>
+              <strong>{option.name}</strong>
               <QuizMinMaxCaption>
-                <span>0ml</span>
-                <span>3,000ml</span>
+                <span>{option.min?.toLocaleString()}{option.unit}</span>
+                <span>{option.max?.toLocaleString()}{option.unit}</span>
               </QuizMinMaxCaption>
               <input
                 type="range"
                 className="range range-xs w-full [--range-shdw:215_0%_0%]"
+                min={option.min}
+                max={option.max}
+                value={guessingValue[i]}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  setGuessingValue((prev) => {
+                    const next = [...prev];
+                    next[i] = value;
+                    return next;
+                  });
+                }}
               />
             </QuizSliderItem>
           ))}
         </QuizContainer>
         <div style={{ height: 16 }} />
-        <GuessButton>
+        <GuessButton onClick={doGuess}>
           <strong>Guess!</strong>
         </GuessButton>
       </S.Container>

@@ -66,3 +66,14 @@ export interface RestaurantType {
 }
 
 export const RestaurantCollectionName = "stores";
+
+export interface Quiz {
+  id: string;
+  customId: string;
+  guesses: QuizGuess[];
+}
+
+export interface QuizGuess {
+  score: number;
+  guessedValues?: number[];
+}
