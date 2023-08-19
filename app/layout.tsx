@@ -1,11 +1,11 @@
+import CartProvider from "@/context/useCart";
 import "./globals.css";
 import "./tailwindcss.css";
-import CartProvider from "@/context/useCart";
 
+import AuthContext from "@/context/useSession";
 import { Session } from "next-auth";
 import { headers } from "next/headers";
 import Container from "./container";
-import AuthContext from "@/context/useSession";
 
 async function getSession(cookie: string): Promise<Session> {
   const response = await fetch(
