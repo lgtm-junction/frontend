@@ -1,10 +1,10 @@
 import Map from "@/components/Map";
-import BottomSheets from "@/components/BottomSheets";
-import * as S from "./styles";
-import { Search } from "@/components/global/Search";
-import { MdLocationOn } from "react-icons/md";
 import { Divider } from "@/components/global/Divider";
+import Promotion from "@/components/global/Promotion";
+import { Search } from "@/components/global/Search";
 import { Octagon } from "@/components/octagon";
+import { MdLocationOn } from "react-icons/md";
+import * as S from "./styles";
 
 const bexcoLatLng = { latitude: 35.1689766, longitude: 129.1360411 };
 
@@ -12,6 +12,7 @@ export default function Home() {
   return (
     <S.Container>
       <Search />
+      <Promotion />
       <div className="flex justify-around mt-7">
         {["sushi", "cake", "coffee"].map((item, idx) => (
           <Octagon
