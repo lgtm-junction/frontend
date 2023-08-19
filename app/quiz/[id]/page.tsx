@@ -49,6 +49,21 @@ const GuessButton = styled(Button)`
   bottom: 16px;
 `;
 
+const ButtonsRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+`;
+
+const AlertContainer = styled.div`
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
 const MAX_GUESS_COUNT = 5;
 
 const scoreEmoji = (score: number) => {
@@ -98,30 +113,6 @@ export default function Page({ params }: { params: { id: string } }) {
     };
   }, []);
 
-  useEffect(() => {
-    const content = guessesToEmojiContent(custom, guesses);
-    const copyContent = () => {
-      navigator.clipboard.writeText(content);
-      openAlert("Copied!");
-    };
-    if ((guesses[guesses.length - 1]?.score ?? 0) >= 100) {
-      openAlert(
-        <>
-          <Button onClick={copyContent}>Copy</Button>
-          <Button onClick={closeAlert}>Close</Button>
-        </>
-      );
-    } else if (guesses.length > MAX_GUESS_COUNT - 1) {
-      openAlert(
-        <>
-          <Button onClick={copyContent}>Copy</Button>
-          <Button onClick={closeAlert}>Close</Button>
-        </>
-      );
-      setGuesses([]);
-    }
-  }, [closeAlert, guesses, openAlert]);
-
   const doGuess = useCallback(() => {
     // 점수 = min(100, 110 - (오차의 합(%)) / 파라미터 수) )
     const distances = custom.options.map((option, i) => {
@@ -139,8 +130,77 @@ export default function Page({ params }: { params: { id: string } }) {
         110 - distances.reduce((a, b) => a + b, 0) / custom.options.length
       )
     );
-    setGuesses((prev) => [...prev, { score, guessedValues: guessingValue }]);
-  }, [custom.options, guessingValue]);
+
+    const newGuesses = [...guesses, { score, guessedValues: guessingValue }];
+    setGuesses(newGuesses);
+
+    const success = newGuesses.some((guess) => guess.score === 100);
+    const complete = newGuesses.length === MAX_GUESS_COUNT;
+
+    if (success || complete) {
+      const content = guessesToEmojiContent(custom, newGuesses);
+      const copyContent = () => {
+        navigator.clipboard.writeText(content);
+        openAlert(
+          <AlertContainer>
+            <div style={{ height: 16 }} />
+            <h2 className="text-h2 text-center">Complete!</h2>
+            <p className="text-p text-center">Copied to clipboard.</p>
+            <div style={{ height: 16 }} />
+            <ButtonsRow>
+              <Button
+                onClick={() => {
+                  closeAlert();
+                  setGuesses([]);
+                }}
+                style={{ flex: 1 }}
+              >
+                Close
+              </Button>
+            </ButtonsRow>
+          </AlertContainer>
+        );
+      };
+      openAlert(
+        <AlertContainer>
+          <div style={{ height: 16 }} />
+          <h2 className="text-h2 text-center">Complete!</h2>
+          <ScoreRow style={{ width: "100%" }}>
+            {new Array(5).fill(undefined).map((_, i) => (
+              <Score
+                key={i}
+                score={
+                  (newGuesses[i] ?? randomDummyGuesses[i] ?? { score: 0 }).score
+                }
+              />
+            ))}
+          </ScoreRow>
+          <div style={{ height: 16 }} />
+          <ButtonsRow>
+            <Button onClick={copyContent} style={{ flex: 1 }}>
+              Share
+            </Button>
+            <Button
+              onClick={() => {
+                closeAlert();
+                setGuesses([]);
+              }}
+              style={{ flex: 1 }}
+            >
+              Close
+            </Button>
+          </ButtonsRow>
+        </AlertContainer>
+      );
+    }
+  }, [
+    closeAlert,
+    custom,
+    guesses,
+    guessingValue,
+    openAlert,
+    randomDummyGuesses,
+  ]);
 
   return (
     <>

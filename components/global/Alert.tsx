@@ -21,19 +21,8 @@ const AlertContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 320px;
-  height: 160px;
   background-color: white;
   gap: 24px;
-`;
-
-const Text = styled.div`
-  color: var(--black, #0b0d0e);
-  text-overflow: ellipsis;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 120%;
-  letter-spacing: -0.2px;
 `;
 
 interface Props {
