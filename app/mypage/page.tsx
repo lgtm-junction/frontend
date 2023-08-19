@@ -97,7 +97,7 @@ export default function Page() {
             <UserName>Healthy food-fighter</UserName>
             <UserId>#0806</UserId>
           </UserNameContainer>
-          <EditButton>Edit</EditButton>
+          <EditButton>VIP</EditButton>
         </ProfileContainer>
         <MenuListContainer>
           <MenuListItem borderBottom>

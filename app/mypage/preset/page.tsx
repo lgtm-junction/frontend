@@ -1,6 +1,7 @@
 "use client";
 
 import * as S from "@/app/styles";
+import Promotion from "@/components/global/Promotion";
 import { Octagon } from "@/components/octagon";
 import { MdNavigateNext } from "react-icons/md";
 import styled from "styled-components";
@@ -50,6 +51,7 @@ export default function Page() {
   return (
     <S.Container>
       <div className="flex flex-col gap-8">
+        <Promotion />
         <div className="flex justify-around" style={{ padding: "16px 0" }}>
           {["sushi", "cake", "coffee"].map((item, idx) => (
             <Octagon
