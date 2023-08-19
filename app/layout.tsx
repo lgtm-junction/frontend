@@ -1,11 +1,11 @@
 "use client";
 
-import StyledComponentsRegistry from "./registry";
-import "./globals.css";
-import "./tailwindcss.css";
 import { TopNav } from "@/components/global/TopNav";
 import ContainerRefProvider from "@/context/useContainerRef";
 import { useRef } from "react";
+import "./globals.css";
+import StyledComponentsRegistry from "./registry";
+import "./tailwindcss.css";
 
 export default function RootLayout({
   children,
@@ -23,7 +23,6 @@ export default function RootLayout({
           <ContainerRefProvider containerRef={ref}>
             <StyledComponentsRegistry>
               <TopNav />
-              {JSON.stringify(ref.current)}
               <div className="h-full p-4">{children}</div>
             </StyledComponentsRegistry>
           </ContainerRefProvider>
