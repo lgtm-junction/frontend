@@ -23,7 +23,6 @@ export interface GeoInformation {
 export interface Restaurant {
   id: string;
   name: string;
-  type: "sushi" | "cake" | "coffee";
   geoInformation: GeoInformation;
   searchKeywords: string[];
   robot: Robot;
