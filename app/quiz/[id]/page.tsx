@@ -39,6 +39,12 @@ const QuizMinMaxCaption = styled.small`
   justify-content: space-between;
 `;
 
+const GuessButton = styled(Button)`
+  position: sticky;
+  width: 100%;
+  bottom: 16px;
+`;
+
 export default function Page() {
   return (
     <>
@@ -75,9 +81,9 @@ export default function Page() {
           ))}
         </QuizContainer>
         <div style={{ height: 16 }} />
-        <Button>
+        <GuessButton>
           <strong>Guess!</strong>
-        </Button>
+        </GuessButton>
       </S.Container>
     </>
   );
