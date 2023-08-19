@@ -9,11 +9,16 @@ export const CustomCollectionName = "customizations";
 
 const db = getFirestore(firebaseApp)
 
-export async function getDocument<T>(collectionName: string, id: string) {
-    return getDoc<T, DocumentData>(doc(db, collectionName, id) as any);
+export async function getDocument<T>(collectionName: string, id: string): Promise<T> {
+    return getDoc<T, DocumentData>(doc(db, collectionName, id) as any).then((snapshot) => {
+        return {
+            ...(snapshot.data() as T),
+            id: snapshot.id,
+        };
+    });
 }
 
-export async function getDocuments<T>(collectionName: string) {
+export async function getDocuments<T>(collectionName: string): Promise<T[]> {
     return await getDocs<T, DocumentData>(collection(db, collectionName) as any).then((snapshot) => {
         const docs: T[] = [];
         snapshot.forEach((doc) => {
