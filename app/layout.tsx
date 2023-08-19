@@ -1,5 +1,6 @@
 import StyledComponentsRegistry from "./registry";
 import "./globals.css";
+import "./tailwindcss.css";
 
 export default function RootLayout({
   children,
@@ -7,7 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html data-theme="light">
       <body>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
