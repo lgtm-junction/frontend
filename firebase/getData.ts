@@ -43,18 +43,3 @@ export async function getMenus(menuIds: string[]): Promise<MenuType[]> {
         return menus;
     });
 }
-
-
-export async function getAllMenus(): Promise<MenuType[]> {
-    return await getDocuments<MenuType>(MenuCollectionName).then((snapshot) => {
-        const menus: MenuType[] = [];
-        snapshot.forEach((doc) => {
-            const menu = {
-                ...doc.data(),
-                id: doc.id,
-            };
-            menus.push(menu);
-        });
-        return menus;
-    });
-}
