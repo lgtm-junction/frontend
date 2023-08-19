@@ -2,49 +2,84 @@
 
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
+import CustonItem from "@/components/Custom/Item";
 import { Divider } from "@/components/global/Divider";
 import Promotion from "@/components/global/Promotion";
 import { Octagon } from "@/components/octagon";
+import { CustomType, MenuType } from "@/types/type";
 import { useCallback, useEffect, useState } from "react";
+import { convertValueAndUnit } from "@/utils/convert";
 
-const MENU = {
+const MENU: MenuType = {
   id: 1,
   name: "Cafe Latte",
   description:
     "A cafe latte is a milk coffee that is a made up of one or two shots of espresso, steamed milk and a final, thin layer of frothed milk on top.",
   price: 5000,
   image: "/cafeLatte.jpeg",
-  customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  options: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
+  allergy: ["Nuts"],
 };
 
-const CUSTOM = [
+const CUSTOM: CustomType[] = [
   {
     id: 1,
     name: "ALMOND EXTRA",
     price: 5000,
     tags: ["SWEET", "NUTS"],
-    options: ["Almond syrup × 9", "Almond slice × 5", "Almond slice × 5"],
+    options: [
+      {
+        id: 1,
+        name: "Almond Syrup",
+        isBoolean: false,
+        min: 0,
+        max: 30,
+        unit: "ml",
+        value: 25,
+      },
+      {
+        id: 2,
+        name: "Almond Slice",
+        isBoolean: false,
+        min: 0,
+        max: 50,
+        unit: "g",
+        value: 25,
+      },
+      {
+        id: 3,
+        name: "Classic Syrup",
+        isBoolean: false,
+        min: 0,
+        max: 30,
+        unit: "ml",
+        value: 0,
+      },
+      {
+        id: 4,
+        name: "Oat milk instead of milk",
+        isBoolean: true,
+        min: 0,
+        max: 1,
+        unit: "",
+        value: 0,
+      },
+    ],
     author: {
       id: "shiftpsh",
       image:
         "https://pbs.twimg.com/profile_images/1559136628609732608/hoYcE2w6_400x400.jpg",
     },
   },
-  {
-    id: 2,
-    name: "VANILA EXTRA",
-    price: 5000,
-    tags: ["SWEET", "NUTS"],
-    options: ["Vanila syrup × 2", "Classic syrup × 1"],
-    author: {
-      id: "havana",
-      image: "https://images.unsplash.com/photo-1475274047050-1d0c0975c63e",
-    },
-  },
 ];
 
 export default function Page({ params }: { params: { menuId: string } }) {
   const [openedCustom, setOpenedCustom] = useState<number | null>(null);
+  const [screenHeight, setScreenHeight] = useState(2000);
+
+  useEffect(() => {
+    setScreenHeight(window.innerHeight);
+  }, []);
 
   const handleBackspace = useCallback(
     (e: KeyboardEvent) => {
@@ -70,7 +105,7 @@ export default function Page({ params }: { params: { menuId: string } }) {
           <div className="text-h2 mt-8 mb-2">{MENU.name}</div>
           <div className="text-small text-gray-500">{MENU.description}</div>
           <div className="text-strong mt-4 my-2">Allergy</div>
-          <div>Nuts</div>
+          <div>{MENU.allergy.join(", ")}</div>
           <div></div>
         </div>
         <Divider />
@@ -98,9 +133,19 @@ export default function Page({ params }: { params: { menuId: string } }) {
                 <div className="text-small">
                   <div className="text-gray-500">Custom options</div>
                   <ul className="list-disc list-inside">
-                    {custom.options.slice(0, 2).map((option, i) => (
-                      <li key={i}>{option}</li>
-                    ))}
+                    {custom.options
+                      .filter((option) => option.value > 0)
+                      .slice(0, 2)
+                      .map((option, i) => (
+                        <li key={i}>
+                          {option.name}{" "}
+                          {convertValueAndUnit(
+                            option.value,
+                            option.unit,
+                            option.isBoolean
+                          )}
+                        </li>
+                      ))}
                   </ul>
                   {custom.options.length > 2 && (
                     <div>+ {custom.options.length - 2} More</div>
@@ -113,10 +158,17 @@ export default function Page({ params }: { params: { menuId: string } }) {
         </div>
       </div>
       <BottomSheets
-        initialTop={openedCustom ? 100 : window.innerHeight}
+        initialTop={openedCustom ? 100 : screenHeight}
         close={openedCustom ? () => setOpenedCustom(null) : null}
       >
-        aasdfasdadsf
+        <div className="px-4 py-4">
+          {openedCustom &&
+            CUSTOM.filter(
+              (custom) => custom.id === openedCustom
+            )[0]!.options.map((option) => (
+              <CustonItem key={option.id} option={option} />
+            ))}
+        </div>
       </BottomSheets>
     </S.Container>
   );
