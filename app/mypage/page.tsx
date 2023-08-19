@@ -104,13 +104,17 @@ export default function Page() {
             <MenuTitle>Order history</MenuTitle>
             <MdNavigateNext size="24px" />
           </MenuListItem>
-          <MenuListItem>
-            <MenuTitle>My custom presets</MenuTitle>
-            <MdNavigateNext size="24px" />
-          </MenuListItem>
+          <S.Link
+            href="/mypage/preset"
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
+            <MenuListItem>
+              <MenuTitle>My custom presets</MenuTitle>
+              <MdNavigateNext size="24px" />
+            </MenuListItem>
+          </S.Link>
         </MenuListContainer>
       </MypageContainer>
-      <S.Link href="/store/1/custom">커스텀 프리셋 관리 페이지</S.Link>
     </S.Container>
   );
 }
