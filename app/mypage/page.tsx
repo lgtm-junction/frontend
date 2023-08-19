@@ -105,8 +105,8 @@ export default function Page() {
           <EditButton>VIP</EditButton>
         </ProfileContainer>
         <MenuListContainer>
-          <MenuListItem borderBottom>
-            <MenuTitle onClick={() => setOpen()}>Order history</MenuTitle>
+          <MenuListItem onClick={() => setOpen()} borderBottom>
+            <MenuTitle>Order history</MenuTitle>
             <MdNavigateNext size="24px" />
           </MenuListItem>
           <S.Link
