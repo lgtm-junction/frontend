@@ -26,7 +26,7 @@ export default function Home() {
         ))}
       </div>
       <Divider />
-      <div className="bg-black px-4 py-3 text-xl text-white font-semibold flex justify-between">
+      <div className="bg-black px-4 py-3 text-xl text-white font-semibold flex justify-between mt-4">
         Search Nearby
         <MdLocationOn />
       </div>
