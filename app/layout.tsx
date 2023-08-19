@@ -17,7 +17,7 @@ export default function RootLayout({
     <html data-theme="light">
       <body>
         <div
-          className="relative w-full max-w-[420px] h-screen m-0 mx-auto flex flex-col flex-1 border"
+          className="relative w-full max-w-[420px] h-full m-0 mx-auto flex flex-col flex-1 border"
           ref={ref}
         >
           <ContainerRefProvider containerRef={ref}>

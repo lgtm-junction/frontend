@@ -4,6 +4,7 @@ import { Search } from "@/components/global/Search";
 import { Octagon } from "@/components/octagon";
 import { MdLocationOn } from "react-icons/md";
 import * as S from "./styles";
+import { CustomRecipe } from "@/components/global/CustomRecipe";
 
 export default function Home() {
   return (
@@ -28,8 +29,11 @@ export default function Home() {
           Search Nearby
           <MdLocationOn />
         </div>
-        <Divider />
-        <div>{/* Card */}</div>
+        <div>
+          <CustomRecipe />
+          <CustomRecipe />
+          <CustomRecipe />
+        </div>
       </div>
     </S.Container>
   );
