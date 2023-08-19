@@ -16,7 +16,8 @@ const MENU: MenuType = {
   description:
     "A cafe latte is a milk coffee that is a made up of one or two shots of espresso, steamed milk and a final, thin layer of frothed milk on top.",
   price: 5000,
-  image: "/cafeLatte.jpeg",
+  imageUrl: "/cafeLatte.jpeg",
+  customizations: [],
   options: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
   allergyInfo: ["Nuts"],
 };
