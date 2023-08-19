@@ -48,10 +48,11 @@ const GuessButton = styled(Button)`
   bottom: 16px;
 `;
 
+const MAX_GUESS_COUNT = 5;
+
 export default function Page({ params }: { params: { id: string } }) {
-  const MAX_GUESS_COUNT = 5;
   const randomGuesses = () =>
-    new Array(5)
+    new Array(MAX_GUESS_COUNT)
       .fill(undefined)
       .map(() => ({ score: Math.floor(Math.random() * 101) }));
 
@@ -61,6 +62,7 @@ export default function Page({ params }: { params: { id: string } }) {
   );
 
   const [guessingValue, setGuessingValue] = useState<number[]>([]);
+  const custom = exampleCustoms;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -82,15 +84,12 @@ export default function Page({ params }: { params: { id: string } }) {
   }, [guesses]);
 
   const doGuess = useCallback(() => {
-    // 점수 = min(100, 110 - (오차의 합(%)) / 파라미터 수) )
+    // 점수 = min(100, 110 - (오차 ** 2의 합(%)) / 파라미터 수) )
     const distances = custom.options.map((option, i) => {
-      const guessedValue =
-        guessingValue[i] ?? ((option.max ?? 0) - (option.min ?? 0)) / 2;
-      return (
-        (Math.abs(guessedValue - option.value) /
-          Math.max(guessedValue, option.value)) *
-        100
-      );
+      const optionDomain = Math.max(1, (option.max || 0) - (option.min || 0));
+      const guessedValue = guessingValue[i] ?? optionDomain / 2;
+      const diffRatio = Math.abs(guessedValue - option.value) / optionDomain;
+      return diffRatio * diffRatio * 100;
     });
 
     const score = Math.floor(
@@ -100,9 +99,7 @@ export default function Page({ params }: { params: { id: string } }) {
       )
     );
     setGuesses((prev) => [...prev, { score, guessedValues: guessingValue }]);
-  }, [guessingValue]);
-
-  const custom = exampleCustoms;
+  }, [custom.options, guessingValue]);
 
   return (
     <>
