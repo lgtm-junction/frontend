@@ -1,5 +1,5 @@
 
-import { MenuType } from "@/types/type";
+import { CustomType, MenuType } from "@/types/type";
 import { firebaseApp } from "./firebase.config";
 import { getFirestore, doc, getDoc, collection, getDocs, DocumentData, query, where, documentId } from "firebase/firestore";
 
@@ -29,6 +29,28 @@ export async function getDocuments<T>(collectionName: string): Promise<T[]> {
         });
         return docs;
     });
+}
+
+export async function getMenu(menuId: string): Promise<MenuType> {
+
+    const menu = await getDocument<MenuType>(MenuCollectionName, menuId);
+
+    if (!menu.customizations) {
+        const q = query(collection(db, CustomCollectionName), where("menuId", "==", menu.id));
+        menu.customizations = await getDocs<CustomType, DocumentData>(q as any).then((snapshot) => {
+            const customs: CustomType[] = [];
+            snapshot.forEach((doc) => {
+                const custom = {
+                    ...doc.data(),
+                    id: doc.id,
+                };
+                customs.push(custom);
+            });
+            return customs;
+        });
+    }
+
+    return menu
 }
 
 
