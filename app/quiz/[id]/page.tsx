@@ -84,7 +84,7 @@ const guessesToEmojiContent = (quiz: CustomType, guesses: QuizGuess[]) => {
       return `${guessResultEmoji}${scoreEmoji(score)} ${score}pts`;
     }),
     "",
-    `http://localhost:3000/quiz/${quiz.id}`,
+    `https://lgtm.sft.sh/quiz/${quiz.id}`,
   ].join("\n");
 };
 
@@ -148,6 +148,15 @@ export default function Page({ params }: { params: { id: string } }) {
             <p className="text-p text-center">Copied to clipboard.</p>
             <div style={{ height: 16 }} />
             <ButtonsRow>
+              <Button
+                as="a"
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  content
+                )}`}
+                style={{ flex: 1 }}
+              >
+                Twitter
+              </Button>
               <Button
                 onClick={() => {
                   closeAlert();
