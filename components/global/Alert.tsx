@@ -1,6 +1,7 @@
 "use client";
 
 import styled from "styled-components";
+import { Button } from "./Button";
 
 const AlertDiv = styled.div`
   position: absolute;
@@ -36,15 +37,6 @@ const Text = styled.div`
   letter-spacing: -0.2px;
 `;
 
-const CloseButton = styled.button`
-  font-family: "Pretendard";
-  font-size: 14px;
-  height: 36px;
-  width: 72px;
-  background-color: #0b0d0e;
-  color: white;
-`;
-
 const Alert = (props: {
   isOpen: boolean;
   setIsOpen: (state: boolean) => void;
@@ -57,7 +49,7 @@ const Alert = (props: {
         <AlertDiv>
           <AlertContainer>
             <Text>WIP</Text>
-            <CloseButton onClick={() => setIsOpen(false)}>Close</CloseButton>
+            <Button onClick={() => setIsOpen(false)}>Close</Button>
           </AlertContainer>
         </AlertDiv>
       )}
