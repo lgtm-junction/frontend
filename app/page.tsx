@@ -1,11 +1,13 @@
 import Map from "@/components/Map";
 import * as S from "./styles";
+import { Search } from "@/components/global/Search";
 
 const bexcoLatLng = { latitude: 35.1689766, longitude: 129.1360411 };
 
 export default function Home() {
   return (
     <S.Container>
+      <Search />
       <h1>메인 페이지</h1>
       <div>
         지도- 근처 가게들 볼 수 있음 (팝업) <br />
