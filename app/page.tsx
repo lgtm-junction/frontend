@@ -4,6 +4,7 @@ import * as S from "./styles";
 import { Search } from "@/components/global/Search";
 import { MdLocationOn } from "react-icons/md";
 import { Divider } from "@/components/global/Divider";
+import { Octagon } from "@/components/octagon";
 
 const bexcoLatLng = { latitude: 35.1689766, longitude: 129.1360411 };
 
@@ -11,6 +12,18 @@ export default function Home() {
   return (
     <S.Container>
       <Search />
+      <div className="flex justify-around mt-7">
+        {["sushi", "cake", "coffee"].map((item, idx) => (
+          <Octagon
+            key={`octagon-${idx}`}
+            width="96px"
+            backgroundImage={`${item}.jpg`}
+            className="flex justify-center items-center text-white text-2xl font-bold capitalize"
+          >
+            {item}
+          </Octagon>
+        ))}
+      </div>
       <Divider />
       <div className="bg-black px-4 py-3 text-xl text-white font-semibold flex justify-between">
         Search Nearby
