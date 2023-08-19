@@ -4,22 +4,27 @@ import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
 import { getDocument, getMenus } from "@/firebase/getData";
-import { RestaurantType, RestaurantCollectionName, MenuType } from "@/types/type";
+import {
+  RestaurantType,
+  RestaurantCollectionName,
+  MenuType,
+} from "@/types/type";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type RestaurantWithMenu = RestaurantType & { menus: MenuType[] }
+type RestaurantWithMenu = RestaurantType & { menus: MenuType[] };
 
 export default function Page({ params }: { params: { id: string } }) {
-
   const [restaurant, setRestaurant] = useState<RestaurantWithMenu>();
 
   useEffect(() => {
     (async () => {
+      const restaurantDoc = await getDocument<RestaurantType>(
+        RestaurantCollectionName,
+        params.id
+      );
 
-      const restaurantDoc = await getDocument<RestaurantType>(RestaurantCollectionName, params.id);
-
-      const restaurant = restaurantDoc.data();
+      const restaurant = restaurantDoc;
 
       if (!restaurant) {
         // 404 case
@@ -31,10 +36,8 @@ export default function Page({ params }: { params: { id: string } }) {
         ...restaurant,
         menus,
       });
-
     })();
   }, []);
-
 
   return (
     <>
@@ -79,7 +82,10 @@ export default function Page({ params }: { params: { id: string } }) {
               key={menu.id}
             >
               <div className="w-20 h-20 border border-black">
-                <img src={menu.imageUrl} className="w-full h-full object-cover" />
+                <img
+                  src={menu.imageUrl}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               <div className="flex flex-col">
