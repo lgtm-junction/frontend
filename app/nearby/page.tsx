@@ -1,11 +1,21 @@
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Map from "@/components/Map";
+import { RestaurantCollectionName, getDocuments } from "@/firebase/getData";
+import { RestaurantType } from "@/types/type";
 import Link from "next/link";
 import { MdLocationOn } from "react-icons/md";
-import { testRestaurants } from "@/firebase/models/example-models";
-export default function Nearby() {
+
+export default async function Nearby() {
   const bexcoLatLng = { latitude: 35.1689766, longitude: 129.1360411 };
+
+  let resturants: RestaurantType[] = [];
+  try {
+    resturants = await getDocuments<RestaurantType>(RestaurantCollectionName);
+  } catch (e) {
+    console.log(e);
+  }
+
   return (
     <S.Container>
       <div className="relative">
@@ -21,9 +31,9 @@ export default function Nearby() {
       </div>
       <BottomSheets initialTop={350}>
         <div className="w-full flex flex-col px-4">
-          {testRestaurants.map(({ name, geoInformation }, idx) => (
+          {resturants.map(({ name, geoInformation, id }, idx) => (
             <Link
-              href="/store/1"
+              href={`/store/${id}`}
               className="flex gap-3 items-center border-b border-b-gray-100 last-of-type:border-b-transparent py-4"
               key={`store-${idx}`}
             >
