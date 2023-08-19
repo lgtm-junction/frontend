@@ -3,15 +3,39 @@
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
+import Image from "next/image";
 export default function Page() {
   return (
     <>
       <S.Container>
         <div>
-          <h1>가게 메인 페이지</h1>
-          <div>
-            메인 로봇 사진or이미지 사용하는 로봇 모델/관리 등등 메뉴리스트
-            가게정보
+          <h1 className="mt-4 mb-2 font-bold text-xl text-center">
+            CAFE JUNCTION
+          </h1>
+          <div className="w-full flex flex-col items-center justify-center">
+            <div className="w-fit px-4 py-2 mb-4 bg-gray-50">
+              마쉿는 커피를 만들어 드릴게욤,,
+            </div>
+            <div className="w-24 h-24 relative">
+              <img
+                src="/face.png"
+                className="w-full h-full object-contain"
+                alt="name"
+              />
+              <img
+                src="/jako_arm_right.png"
+                className="absolute -bottom-4 left-12 origin-[50%_90%] animate-jako-right"
+                alt="jako arm"
+              />
+              <img
+                src="/jako_arm_left.png"
+                className="absolute -bottom-4 right-12 origin-[50%_90%] animate-jako-left"
+                alt="jako arm"
+              />
+            </div>
+            <div className="w-32 -mt-6">
+              <img src="/apron.png" />
+            </div>
           </div>
           <S.Link href="/store/1/custom">메뉴 커스텀 페이지</S.Link>
           <S.Link href="/store/1/order">주문 페이지</S.Link>
