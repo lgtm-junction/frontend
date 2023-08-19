@@ -7,30 +7,20 @@ import { MdLocationOn } from "react-icons/md";
 import * as S from "./styles";
 import { CustomRecipe } from "@/components/global/CustomRecipe";
 import { useEffect, useState } from "react";
-import { getAllMenus } from "@/firebase/getData";
+import { CustomCollectionName, getDocuments } from "@/firebase/getData";
 import Link from "next/link";
 import { CustomType } from "@/types/type";
 
-type CustomizationWithPrice = CustomType & {
-  menuPrice: number;
-}
-
 export default function Home() {
   const [customizations, setCustomizations] = useState<
-    CustomizationWithPrice[]
+    CustomType[]
   >([]);
 
   useEffect(() => {
     (async () => {
       // fetch all customizations
-      const menus = await getAllMenus();
-      const menuCustomizations = menus.flatMap((menu) =>
-        menu.customizations?.map((customization) => ({
-          ...customization,
-          menuPrice: menu.price,
-        })) ?? []
-      );
-      setCustomizations(menuCustomizations);
+      const customs = await getDocuments<CustomType>(CustomCollectionName);
+      setCustomizations(customs);
     })();
   }, []);
 
