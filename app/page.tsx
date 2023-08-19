@@ -1,4 +1,5 @@
 "use client";
+import { Tab, TabsContainer } from "@/components/Tab";
 import { CustomRecipe } from "@/components/global/CustomRecipe";
 import { Divider } from "@/components/global/Divider";
 import Promotion from "@/components/global/Promotion";
@@ -25,6 +26,12 @@ export default function Home() {
   return (
     <S.Container>
       <div className="flex flex-col gap-4">
+        <TabsContainer style={{ marginTop: -16 }}>
+          <Tab href="/" active>
+            Main
+          </Tab>
+          <Tab href="/quiz">Quiz</Tab>
+        </TabsContainer>
         <Search />
         <Promotion />
         <div className="flex justify-around">

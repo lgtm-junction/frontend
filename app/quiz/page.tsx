@@ -2,6 +2,7 @@
 
 import * as S from "@/app/styles";
 import PresetItem from "@/components/PresetItem";
+import { Tab, TabsContainer } from "@/components/Tab";
 import styled from "styled-components";
 
 const RecentText = styled.div`
@@ -21,6 +22,12 @@ export default function Page() {
   return (
     <S.Container>
       <div className="flex flex-col gap-8">
+        <TabsContainer style={{ marginTop: -16 }}>
+          <Tab href="/">Main</Tab>
+          <Tab href="/quiz" active>
+            Quiz
+          </Tab>
+        </TabsContainer>
         <PresetItemContainer>
           <RecentText>My presets</RecentText>
           {["Almond Extra", "Vanilla Extra", "Shiftpsh Latte"].map((title) => (
