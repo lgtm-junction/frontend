@@ -12,7 +12,9 @@ export const TopNav = () => {
       <S.Link href="/">
         <Image width={110} height={29} src="/Logo.svg" alt="romakase" />
       </S.Link>
-      <MdPerson size="32px" />
+      <S.Link href="/mypage" style={{ color: "inherit" }}>
+        <MdPerson size="32px" />
+      </S.Link>
     </div>
   );
 };
