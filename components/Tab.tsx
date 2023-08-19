@@ -10,11 +10,10 @@ export const TabsContainer = styled.ul`
 `;
 
 const TabWrapper = styled.li<{ $active: boolean }>`
-  padding: 16px 0;
+  padding: 8px 0;
   border-bottom: 2px solid
     ${({ $active }) => ($active ? "#000" : "transparent")};
   cursor: pointer;
-  font-weight: ${({ $active }) => ($active ? "bold" : "normal")};
   &:hover {
     border-bottom: 2px solid #000;
   }
