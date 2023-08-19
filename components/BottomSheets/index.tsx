@@ -36,7 +36,7 @@ export default function BottomSheets({
       <S.SheetContainer>
         <Sheet.Header />
         <Sheet.Content>
-          <Sheet.Scroller>{children}ddd</Sheet.Scroller>
+          <Sheet.Scroller>{children}</Sheet.Scroller>
         </Sheet.Content>
       </S.SheetContainer>
     </S.StyledSheet>

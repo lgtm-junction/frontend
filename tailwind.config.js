@@ -48,6 +48,20 @@ module.exports = {
             lineHeight: "120%",
           },
         ],
+        h1: [
+          "32px",
+          {
+            fontWeight: "900",
+            lineHeight: "120%",
+          },
+        ],
+        h2: [
+          "24px",
+          {
+            fontWeight: "700",
+            lineHeight: "120%",
+          },
+        ],
       },
 
       keyframes: {

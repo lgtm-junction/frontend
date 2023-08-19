@@ -3,18 +3,19 @@
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
+import Link from "next/link";
 
 const MENUS = [
   {
     id: 1,
     name: "Cafe Latte",
     price: 5000,
-    image: "/cafe.jpg",
+    image: "/cafeLatte.jpeg",
     customOptions: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
   },
 ];
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <S.Container>
@@ -47,19 +48,18 @@ export default function Page() {
               <img src="/apron.png" />
             </div>
           </div>
-          <S.Link href="/store/1/custom">메뉴 커스텀 페이지</S.Link>
-          <S.Link href="/store/1/order">주문 페이지</S.Link>
         </div>
       </S.Container>
       <BottomSheets height={550}>
         <div className="w-full flex flex-col px-4">
           {MENUS.map((menu) => (
-            <div
+            <Link
+              href={`./${params.id}/menu/${menu.id}`}
               className="flex gap-3 items-center border-b border-b-gray-100 py-4"
               key={menu.id}
             >
               <div className="w-20 h-20 border border-black">
-                <img src="/cafe.jpg" className="w-full h-full object-cover" />
+                <img src={menu.image} className="w-full h-full object-cover" />
               </div>
 
               <div className="flex flex-col">
@@ -87,7 +87,7 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </BottomSheets>
