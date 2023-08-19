@@ -1,4 +1,4 @@
-import { CustomCakeDesign } from "./customCakeDesign";
+import { Food } from "./food";
 
 export interface Robot {
   // JAKA Zu 18
@@ -7,26 +7,6 @@ export interface Robot {
   lastBathDateTime: Date;
   // 마쉿는 케이크를 만들어 드릴게욤,,
   comment: string;
-}
-
-export interface FoodOption {
-  // 'Cream': 'Large amount (1,000g)'
-  // 'Sheet': 'Vanilla'
-  name: string;
-  type: "custom_cake_design" | "choice" | "comment";
-  // ['Large amount (1,000g)', ...]
-  choices?: string[];
-  // 'Vanilla'
-  comment?: string;
-  customCakeDesign?: CustomCakeDesign;
-}
-
-export interface FoodProduct {
-  // Cafe Latte
-  name: string;
-  // ₩ 50,000
-  price: number;
-  options: FoodOption[];
 }
 
 export interface GeoInformation {
@@ -47,7 +27,7 @@ export interface Restaurant {
   geoInformation: GeoInformation;
   searchKeywords: string[];
   robot: Robot;
-  products: FoodProduct[];
+  products: Food[];
 }
 
 export const RestaurantCollectionName = "stores";
