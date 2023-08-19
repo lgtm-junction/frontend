@@ -45,7 +45,7 @@ const CUSTOM = [
 export default function Page({ params }: { params: { menuId: string } }) {
   return (
     <S.Container>
-      <div className="w-[calc(100%+32px)] h-64 relative -translate-x-4">
+      <div className="w-[calc(100%+32px)] h-64 relative -translate-x-4 -mt-4">
         <img src={MENU.image} className="w-full h-full object-cover" />
       </div>
       <div className="p-1">
