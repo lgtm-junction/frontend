@@ -25,6 +25,8 @@ const MENU: MenuType = {
 export default function Page() {
   const [openedCustom, setOpenedCustom] = useState<number | null>(null);
   const [screenHeight, setScreenHeight] = useState(2000);
+  const [menu, setMenu] = useState<MenuType>();
+
 
   useEffect(() => {
     setScreenHeight(window.innerHeight);
@@ -47,14 +49,14 @@ export default function Page() {
   return (
     <S.Container>
       <div className="w-[calc(100%+32px)] h-64 relative -translate-x-4 -mt-4">
-        <img src={MENU.image} className="w-full h-full object-cover" />
+        <img src={MENU.imageUrl} className="w-full h-full object-cover" />
       </div>
       <div className="p-1">
         <div className="flex flex-col items-start">
           <div className="text-h2 mt-8 mb-2">{MENU.name}</div>
           <div className="text-small text-gray-500">{MENU.description}</div>
           <div className="text-strong mt-4 my-2">Allergy</div>
-          <div>{MENU.allergy.join(", ")}</div>
+          <div>{MENU.allergyInfo.join(", ")}</div>
           <div></div>
         </div>
         <Divider />

@@ -1,7 +1,10 @@
 
+import { MenuType } from "@/types/type";
 import { firebaseApp } from "./firebase.config";
 import { getFirestore, doc, getDoc, collection, getDocs, DocumentData, query, where, documentId } from "firebase/firestore";
-import { Food, FoodCollectionName } from "./models/food";
+
+export const MenuCollectionName = "foods";
+export const RestaurantCollectionName = "stores";
 
 const db = getFirestore(firebaseApp)
 
@@ -14,34 +17,34 @@ export async function getDocuments<T>(collectionName: string) {
 }
 
 
-export async function getFoods(foodIds: string[]): Promise<Food[]> {
+export async function getMenus(menuIds: string[]): Promise<MenuType[]> {
 
-    const q = query(collection(db, FoodCollectionName), where(documentId(), "in", foodIds));
+    const q = query(collection(db, MenuCollectionName), where(documentId(), "in", menuIds));
 
-    return await getDocs<Food, DocumentData>(q as any).then((snapshot) => {
-        const foods: Food[] = [];
+    return await getDocs<MenuType, DocumentData>(q as any).then((snapshot) => {
+        const menus: MenuType[] = [];
         snapshot.forEach((doc) => {
-            const food = {
+            const menu = {
                 ...doc.data(),
                 id: doc.id,
             };
-            foods.push(food);
+            menus.push(menu);
         });
-        return foods;
+        return menus;
     });
 }
 
 
-export async function getAllFoods(): Promise<Food[]> {
-    return await getDocuments<Food>(FoodCollectionName).then((snapshot) => {
-        const foods: Food[] = [];
+export async function getAllMenus(): Promise<MenuType[]> {
+    return await getDocuments<MenuType>(MenuCollectionName).then((snapshot) => {
+        const menus: MenuType[] = [];
         snapshot.forEach((doc) => {
-            const food = {
+            const menu = {
                 ...doc.data(),
                 id: doc.id,
             };
-            foods.push(food);
+            menus.push(menu);
         });
-        return foods;
+        return menus;
     });
 }

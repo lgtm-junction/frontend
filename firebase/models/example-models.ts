@@ -1,7 +1,7 @@
-import { Food, FoodCustomization } from "./food"
-import { Restaurant } from "./restaurant"
+import { MenuType, RestaurantType } from "@/types/type"
 
-export const testRestaurant: Omit<Restaurant, "id"> = {
+
+export const testRestaurant: Omit<RestaurantType, "id"> = {
 // id: "G91GZDuaAepwXonMlV40"
   name: "BBQ치킨",
   geoInformation: {
@@ -18,10 +18,10 @@ export const testRestaurant: Omit<Restaurant, "id"> = {
     lastBathDateTime: new Date(),
     comment: "마쉿는 케이크를 만들어 드릴게욤,,",
   },
-  foodIds: [],
+  menuIds: [],
 }
 
-export const testFood: Omit<Food, "id"> = {
+export const testFood: Omit<MenuType, "id"> = {
 // id: "rbKVdjTkqNAjfXghIDxH"
   name: "황금올리브치킨",
   basePrice: 20000,

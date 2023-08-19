@@ -3,13 +3,12 @@
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
-import { getDocument, getFoods } from "@/firebase/getData";
-import { Food } from "@/firebase/models/food";
-import { Restaurant, RestaurantCollectionName } from "@/firebase/models/restaurant";
+import { getDocument, getMenus } from "@/firebase/getData";
+import { RestaurantType, RestaurantCollectionName } from "@/types/type";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type RestaurantWithMenu = Restaurant & { menus: Food[] }
+type RestaurantWithMenu = Restaurant & { menus: Menu[] }
 
 export default function Page({ params }: { params: { id: string } }) {
 
@@ -18,7 +17,7 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     (async () => {
 
-      const restaurantDoc = await getDocument<Restaurant>(RestaurantCollectionName, params.id);
+      const restaurantDoc = await getDocument<RestaurantType>(RestaurantCollectionName, params.id);
 
       const restaurant = restaurantDoc.data();
 
@@ -27,7 +26,7 @@ export default function Page({ params }: { params: { id: string } }) {
         throw new Error("Restaurant not found");
       }
 
-      const menus = await getFoods(restaurant.foodIds);
+      const menus = await getMenus(restaurant.menuIds);
       setRestaurant({
         ...restaurant,
         menus,
