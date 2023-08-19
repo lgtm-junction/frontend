@@ -8,7 +8,6 @@ export const MypageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
-  gap: 48px;
 `;
 
 export const ProfileContainer = styled.div`
@@ -22,9 +21,9 @@ export const ProfileContainer = styled.div`
 
 export const UserNameContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   gap: 4px;
 `;
 

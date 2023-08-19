@@ -5,8 +5,10 @@ import * as S from "./styles";
 import { Octagon } from "@/components/octagon";
 import { useAlert } from "@/context/useAlert";
 import { MdNavigateNext, MdPerson } from "react-icons/md";
+import { Session } from "next-auth";
+import { Divider } from "@/components/global/Divider";
 
-export default function MyPageView() {
+export default function MyPageView({ user }: { user: Session["user"] }) {
   const alertContext = useAlert();
   const { setOpen } = alertContext;
 
@@ -15,14 +17,18 @@ export default function MyPageView() {
       <S.MypageContainer>
         <S.ProfileContainer>
           <Octagon width="132px">
-            <MdPerson size="84px" />
+            {user?.image ? (
+              <img src={user.image} className="w-full h-full object-cover" />
+            ) : (
+              <MdPerson size="84px" />
+            )}
           </Octagon>
           <S.UserNameContainer>
-            <S.UserName>Healthy food-fighter</S.UserName>
-            <S.UserId>#0806</S.UserId>
+            <S.UserName>{user?.name}</S.UserName>
+            <S.UserId>{user?.email}</S.UserId>
           </S.UserNameContainer>
-          <S.EditButton>VIP</S.EditButton>
         </S.ProfileContainer>
+        <Divider />
         <S.MenuListContainer>
           <S.MenuListItem onClick={() => setOpen()} borderBottom>
             <S.MenuTitle>Order history</S.MenuTitle>

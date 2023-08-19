@@ -7,5 +7,5 @@ import SignInView from "./signIn";
 export default async function Page() {
   const session = await getServerSession(authOptions);
 
-  return session?.user ? <MyPageView /> : <SignInView />;
+  return session?.user ? <MyPageView user={session.user} /> : <SignInView />;
 }
