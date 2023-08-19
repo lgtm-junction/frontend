@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <html data-theme="light">
       <body>
-        <div className="w-[420px] h-screen m-0 mx-auto flex flex-col flex-1 border">
+        <div className="w-full max-w-[420px] h-screen m-0 mx-auto flex flex-col flex-1 border">
           <StyledComponentsRegistry>
             <TopNav />
             <div className="h-full p-4">{children}</div>

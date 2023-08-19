@@ -1,7 +1,12 @@
+"use client";
+
 import * as S from "@/app/styles";
+import { Octagon } from "@/components/octagon";
+
 export default function Page() {
   return (
     <S.Container>
+      <Octagon width="132px" />
       <div>
         <h1> 마이페이지</h1>
         <div>
