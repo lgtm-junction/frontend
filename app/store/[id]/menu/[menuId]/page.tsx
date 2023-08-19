@@ -2,13 +2,14 @@
 
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
-import CustonItem from "@/components/Custom/Item";
 import { Divider } from "@/components/global/Divider";
 import Promotion from "@/components/global/Promotion";
 import { Octagon } from "@/components/octagon";
-import { CustomType, MenuType } from "@/types/type";
+import { MenuType } from "@/types/type";
 import { useCallback, useEffect, useState } from "react";
 import { convertValueAndUnit } from "@/utils/convert";
+import CustomList from "@/components/Custom/List";
+import { CUSTOM } from "@/constants/dummy";
 
 const MENU: MenuType = {
   id: 1,
@@ -21,59 +22,7 @@ const MENU: MenuType = {
   allergy: ["Nuts"],
 };
 
-const CUSTOM: CustomType[] = [
-  {
-    id: 1,
-    name: "ALMOND EXTRA",
-    price: 5000,
-    tags: ["SWEET", "NUTS"],
-    options: [
-      {
-        id: 1,
-        name: "Almond Syrup",
-        isBoolean: false,
-        min: 0,
-        max: 30,
-        unit: "ml",
-        value: 25,
-      },
-      {
-        id: 2,
-        name: "Almond Slice",
-        isBoolean: false,
-        min: 0,
-        max: 50,
-        unit: "g",
-        value: 25,
-      },
-      {
-        id: 3,
-        name: "Classic Syrup",
-        isBoolean: false,
-        min: 0,
-        max: 30,
-        unit: "ml",
-        value: 0,
-      },
-      {
-        id: 4,
-        name: "Oat milk instead of milk",
-        isBoolean: true,
-        min: 0,
-        max: 1,
-        unit: "",
-        value: 0,
-      },
-    ],
-    author: {
-      id: "shiftpsh",
-      image:
-        "https://pbs.twimg.com/profile_images/1559136628609732608/hoYcE2w6_400x400.jpg",
-    },
-  },
-];
-
-export default function Page({ params }: { params: { menuId: string } }) {
+export default function Page() {
   const [openedCustom, setOpenedCustom] = useState<number | null>(null);
   const [screenHeight, setScreenHeight] = useState(2000);
 
@@ -162,16 +111,7 @@ export default function Page({ params }: { params: { menuId: string } }) {
         close={openedCustom ? () => setOpenedCustom(null) : null}
       >
         <div className="px-4 py-4">
-          {openedCustom &&
-            CUSTOM.filter(
-              (custom) => custom.id === openedCustom
-            )[0]!.options.map((option) => (
-              <CustonItem key={option.id} option={option} />
-            ))}
-          <div className="fixed inset-x-0 bottom-[40px] h-24 flex gap-4 p-4 text-white text-h2">
-            <button className="bg-gray-500 h-16 w-full">Cart</button>
-            <button className="bg-black h-16 w-full">Order</button>
-          </div>
+          {openedCustom && <CustomList id={openedCustom} />}
         </div>
       </BottomSheets>
     </S.Container>

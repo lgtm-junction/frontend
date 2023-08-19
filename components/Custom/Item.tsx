@@ -1,10 +1,20 @@
 import { OptionType } from "@/types/type";
-import { convertValueAndUnit } from "@/utils/convert";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cc from "classcat";
 
-export default function CustonItem({ option }: { option: OptionType }) {
+export default function CustonItem({
+  option,
+  changeOption,
+}: {
+  option: OptionType;
+  changeOption: (newValue: number) => void;
+}) {
   const [value, setValue] = useState(option.value);
+
+  useEffect(() => {
+    changeOption(value);
+  }, [value]);
+
   return (
     <div
       className={cc([
@@ -12,7 +22,7 @@ export default function CustonItem({ option }: { option: OptionType }) {
         !option.isBoolean && "collapse collapse-arrow",
       ])}
     >
-      {!option.isBoolean && <input type="radio" name="my-accordion-4" />}
+      {!option.isBoolean && <input type="checkbox" name="my-accordion-4" />}
       <div className="collapse-title pr-3">
         <div className="text-strong flex items-center justify-between">
           {option.name}

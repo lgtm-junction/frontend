@@ -7,6 +7,7 @@ import { useRef } from "react";
 import "./globals.css";
 import StyledComponentsRegistry from "./registry";
 import "./tailwindcss.css";
+import CartProvider from "@/context/useCart";
 
 export default function RootLayout({
   children,
@@ -24,10 +25,12 @@ export default function RootLayout({
           />
           <ContainerRefProvider containerRef={ref}>
             <AlertProvider>
-              <StyledComponentsRegistry>
-                <TopNav />
-                <div className="h-full p-4">{children}</div>
-              </StyledComponentsRegistry>
+              <CartProvider>
+                <StyledComponentsRegistry>
+                  <TopNav />
+                  <div className="h-full p-4">{children}</div>
+                </StyledComponentsRegistry>
+              </CartProvider>
             </AlertProvider>
           </ContainerRefProvider>
         </div>
