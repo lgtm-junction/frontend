@@ -8,3 +8,10 @@ export const Container = styled.main`
 
   background-color: #f2f2f2;
 `;
+
+export const Link = styled.a`
+  display: block;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+`;
