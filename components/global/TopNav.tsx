@@ -6,7 +6,7 @@ import { MdPerson } from "react-icons/md";
 export const TopNav = () => {
   return (
     <div
-      className="h-[60px] flex justify-between content-center p-4"
+      className="h-[60px] flex justify-between content-center p-4 sticky top-0 bg-white"
       style={{ zIndex: "99999999" }}
     >
       <S.Link href="/">
