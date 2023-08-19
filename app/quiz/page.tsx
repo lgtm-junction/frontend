@@ -1,8 +1,12 @@
 "use client";
 
 import * as S from "@/app/styles";
+import EmptyStatePlaceholder from "@/components/EmptyStatePlaceholder";
 import PresetItem from "@/components/PresetItem";
 import { Tab, TabsContainer } from "@/components/Tab";
+import { CustomCollectionName, getDocuments } from "@/firebase/getData";
+import { CustomType } from "@/types/type";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const RecentText = styled.div`
@@ -19,6 +23,21 @@ const PresetItemContainer = styled.div`
 `;
 
 export default function Page() {
+  const [quizzes, setQuizzes] = useState<CustomType[]>();
+
+  const fetchData = useCallback(async () => {
+    try {
+      const res = await getDocuments<CustomType>(CustomCollectionName);
+      setQuizzes(res);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   return (
     <S.Container>
       <div className="flex flex-col gap-8">
@@ -30,23 +49,13 @@ export default function Page() {
         </TabsContainer>
         <PresetItemContainer>
           <RecentText>My presets</RecentText>
-          {["Almond Extra", "Vanilla Extra", "Shiftpsh Latte"].map((title) => (
-            <PresetItem
-              title={title}
-              $backgroundImage="/coffee.jpg"
-              key={title}
-            />
-          ))}
+          <EmptyStatePlaceholder>Empty</EmptyStatePlaceholder>
         </PresetItemContainer>
         <PresetItemContainer>
           <RecentText>Shared presets</RecentText>
-          {["Almond Extra", "Vanilla Extra", "Shiftpsh Latte"].map((title) => (
-            <PresetItem
-              title={title}
-              $backgroundImage="/coffee.jpg"
-              key={title}
-            />
-          ))}
+          {quizzes?.map(({ name, id, author }) => (
+            <PresetItem title={name} $backgroundImage={author.image} key={id} />
+          )) || null}
         </PresetItemContainer>
       </div>
     </S.Container>
