@@ -3,6 +3,7 @@
 import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
+import Link from "next/link";
 
 const MENUS = [
   {
@@ -54,7 +55,8 @@ export default function Page() {
       <BottomSheets height={550}>
         <div className="w-full flex flex-col px-4">
           {MENUS.map((menu) => (
-            <div
+            <Link
+              href={`./menu/${menu.id}`}
               className="flex gap-3 items-center border-b border-b-gray-100 py-4"
               key={menu.id}
             >
@@ -87,7 +89,7 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </BottomSheets>
