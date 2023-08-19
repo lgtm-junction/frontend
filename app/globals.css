@@ -11,9 +11,6 @@ body {
   margin: 0;
   color: #0b0d00;
   font-family: "Pretendard";
-  background-image: url("/background.png");
-  background-size: cover;
-  background-position: center;
 }
 
 .keep-all {

@@ -41,7 +41,7 @@ export default async function Nearby() {
                 <img src="/cake.jpg" className="w-full h-full object-cover" />
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col flex-1">
                 <div className="flex justify-between gap-1">
                   <div className="text-strong">{name}</div>
                   <div className="text-gray-400 text-base whitespace-nowrap">
