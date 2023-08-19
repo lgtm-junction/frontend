@@ -3,6 +3,7 @@ import Sheet from "react-modal-sheet";
 
 export const StyledSheet = styled(Sheet)`
   position: absolute !important;
+  z-index: 200 !important;
 `;
 
 export const Backdrop = styled(Sheet.Backdrop)`
