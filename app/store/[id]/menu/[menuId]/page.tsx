@@ -19,7 +19,7 @@ const MENU: MenuType = {
   price: 5000,
   image: "/cafeLatte.jpeg",
   options: ["Milk Amount", "Grinding", "asdfasdf", "asdfdfs"],
-  allergy: ["Nuts"],
+  allergyInfo: ["Nuts"],
 };
 
 export default function Page() {

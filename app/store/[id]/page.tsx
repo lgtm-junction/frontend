@@ -4,11 +4,11 @@ import * as S from "@/app/styles";
 import BottomSheets from "@/components/BottomSheets";
 import Icons from "@/components/Icons";
 import { getDocument, getMenus } from "@/firebase/getData";
-import { RestaurantType, RestaurantCollectionName } from "@/types/type";
+import { RestaurantType, RestaurantCollectionName, MenuType } from "@/types/type";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type RestaurantWithMenu = Restaurant & { menus: Menu[] }
+type RestaurantWithMenu = RestaurantType & { menus: MenuType[] }
 
 export default function Page({ params }: { params: { id: string } }) {
 
@@ -41,11 +41,11 @@ export default function Page({ params }: { params: { id: string } }) {
       <S.Container>
         <div>
           <h1 className="mt-4 mb-2 font-bold text-xl text-center">
-            CAFE JUNCTION
+            {restaurant?.name}
           </h1>
           <div className="w-full flex flex-col items-center justify-center">
             <div className="w-fit px-4 py-2 mb-4 bg-gray-50">
-              마쉿는 커피를 만들어 드릴게욤,,
+              {restaurant?.robot.comment}
             </div>
             <div className="w-24 h-24 relative">
               <img
