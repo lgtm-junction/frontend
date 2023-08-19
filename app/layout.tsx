@@ -15,9 +15,9 @@ export default function RootLayout({
   const ref = useRef<HTMLDivElement>(null);
   return (
     <html data-theme="light">
-      <body>
+      <body className="min-h-screen h-full">
         <div
-          className="relative w-full max-w-[420px] h-full m-0 mx-auto flex flex-col flex-1 border"
+          className="relative w-full max-w-[420px] min-h-screen h-full m-0 mx-auto flex flex-col flex-1 border"
           ref={ref}
         >
           <ContainerRefProvider containerRef={ref}>
