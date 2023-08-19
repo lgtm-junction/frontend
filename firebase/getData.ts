@@ -5,6 +5,7 @@ import { getFirestore, doc, getDoc, collection, getDocs, DocumentData, query, wh
 
 export const MenuCollectionName = "foods";
 export const RestaurantCollectionName = "stores";
+export const CustomCollectionName = "customizations";
 
 const db = getFirestore(firebaseApp)
 
@@ -13,7 +14,16 @@ export async function getDocument<T>(collectionName: string, id: string) {
 }
 
 export async function getDocuments<T>(collectionName: string) {
-    return getDocs<T, DocumentData>(collection(db, collectionName) as any);
+    return await getDocs<T, DocumentData>(collection(db, collectionName) as any).then((snapshot) => {
+        const docs: T[] = [];
+        snapshot.forEach((doc) => {
+            docs.push({
+                ...doc.data(),
+                id: doc.id,
+            });
+        });
+        return docs;
+    });
 }
 
 
