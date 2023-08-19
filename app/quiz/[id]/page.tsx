@@ -4,7 +4,7 @@ import * as S from "@/app/styles";
 import { Score, ScoreRow } from "@/components/Score";
 import { Button } from "@/components/global/Button";
 import { useAlert } from "@/context/useAlert";
-import { exampleCustoms } from "@/firebase/models/example-models";
+import { CustomCollectionName, getDocument } from "@/firebase/getData";
 import { CustomType, QuizGuess } from "@/types/type";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -67,9 +67,9 @@ const AlertContainer = styled.div`
 const MAX_GUESS_COUNT = 5;
 
 const scoreEmoji = (score: number) => {
-  if (score >= 100) return "🟩";
-  if (score >= 75) return "🟨";
-  if (score >= 50) return "🟧";
+  if (score >= 75) return "🟩";
+  if (score >= 50) return "🟨";
+  if (score >= 25) return "🟧";
   if (score >= 0) return "🟥";
   return "🟫";
 };
@@ -101,7 +101,23 @@ export default function Page({ params }: { params: { id: string } }) {
   );
 
   const [guessingValue, setGuessingValue] = useState<number[]>([]);
-  const custom = exampleCustoms;
+  const [quiz, setQuiz] = useState<CustomType>();
+
+  const fetchQuiz = useCallback(async () => {
+    try {
+      const res = await getDocument<CustomType>(
+        CustomCollectionName,
+        params.id
+      );
+      setQuiz(res);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [params.id]);
+
+  useEffect(() => {
+    fetchQuiz();
+  }, [fetchQuiz]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -114,8 +130,9 @@ export default function Page({ params }: { params: { id: string } }) {
   }, []);
 
   const doGuess = useCallback(() => {
+    if (!quiz) return;
     // 점수 = min(100, 110 - (오차의 합(%)) / 파라미터 수) )
-    const distances = custom.options.map((option, i) => {
+    const distances = quiz.options.map((option, i) => {
       const optionDomain = Math.max(1, (option.max || 0) - (option.min || 0));
       const guessedValue = guessingValue[i] ?? optionDomain / 2;
       const diffRatio = Math.min(
@@ -127,7 +144,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const score = Math.floor(
       Math.min(
         100,
-        110 - distances.reduce((a, b) => a + b, 0) / custom.options.length
+        110 - distances.reduce((a, b) => a + b, 0) / quiz.options.length
       )
     );
 
@@ -138,7 +155,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const complete = newGuesses.length === MAX_GUESS_COUNT;
 
     if (success || complete) {
-      const content = guessesToEmojiContent(custom, newGuesses);
+      const content = guessesToEmojiContent(quiz, newGuesses);
       const copyContent = () => {
         navigator.clipboard.writeText(content);
         openAlert(
@@ -202,21 +219,25 @@ export default function Page({ params }: { params: { id: string } }) {
         </AlertContainer>
       );
     }
-  }, [
-    closeAlert,
-    custom,
-    guesses,
-    guessingValue,
-    openAlert,
-    randomDummyGuesses,
-  ]);
+  }, [closeAlert, quiz, guesses, guessingValue, openAlert, randomDummyGuesses]);
+
+  if (!quiz) {
+    return (
+      <>
+        <S.Container>
+          <div style={{ height: 24 }} />
+          <strong>Loading...</strong>
+        </S.Container>
+      </>
+    );
+  }
 
   return (
     <>
       <S.Container>
         <CoverImage url="/almonds.png" />
         <div style={{ height: 24 }} />
-        <strong>{custom.name}</strong>
+        <strong>{quiz.name}</strong>
         <p
           style={{
             color: "#778288",
@@ -236,7 +257,7 @@ export default function Page({ params }: { params: { id: string } }) {
           ))}
         </ScoreRow>
         <QuizContainer>
-          {custom.options.map((option, i) => (
+          {quiz.options.map((option, i) => (
             <QuizSliderItem key={i}>
               <strong>{option.name}</strong>
               <QuizMinMaxCaption>
