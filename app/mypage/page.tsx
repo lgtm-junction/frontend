@@ -2,6 +2,7 @@
 
 import * as S from "@/app/styles";
 import { Octagon } from "@/components/octagon";
+import { useAlert } from "@/context/useAlert";
 import { MdNavigateNext, MdPerson } from "react-icons/md";
 import styled from "styled-components";
 
@@ -86,6 +87,10 @@ const MenuTitle = styled.div`
 `;
 
 export default function Page() {
+  const alertContext = useAlert();
+
+  const { setOpen } = alertContext;
+
   return (
     <S.Container>
       <MypageContainer>
@@ -101,7 +106,7 @@ export default function Page() {
         </ProfileContainer>
         <MenuListContainer>
           <MenuListItem borderBottom>
-            <MenuTitle>Order history</MenuTitle>
+            <MenuTitle onClick={() => setOpen()}>Order history</MenuTitle>
             <MdNavigateNext size="24px" />
           </MenuListItem>
           <S.Link

@@ -1,6 +1,7 @@
 "use client";
 
 import { TopNav } from "@/components/global/TopNav";
+import { AlertProvider } from "@/context/useAlert";
 import ContainerRefProvider from "@/context/useContainerRef";
 import { useRef } from "react";
 import "./globals.css";
@@ -21,10 +22,12 @@ export default function RootLayout({
           ref={ref}
         >
           <ContainerRefProvider containerRef={ref}>
-            <StyledComponentsRegistry>
-              <TopNav />
-              <div className="h-full p-4">{children}</div>
-            </StyledComponentsRegistry>
+            <AlertProvider>
+              <StyledComponentsRegistry>
+                <TopNav />
+                <div className="h-full p-4">{children}</div>
+              </StyledComponentsRegistry>
+            </AlertProvider>
           </ContainerRefProvider>
         </div>
       </body>
