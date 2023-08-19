@@ -30,6 +30,12 @@ export default async function RootLayout({
   const session = await getSession(headers().get("cookie") ?? "");
   return (
     <html data-theme="light">
+      <head>
+        <link
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css"
+          rel="stylesheet"
+        />
+      </head>
       <AuthContext session={session}>
         <CartProvider>
           <body className="min-h-screen h-full">

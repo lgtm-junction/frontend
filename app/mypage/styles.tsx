@@ -28,7 +28,6 @@ export const UserNameContainer = styled.div`
 `;
 
 export const UserName = styled.div`
-  font-family: "Pretendard";
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -36,9 +35,7 @@ export const UserName = styled.div`
 `;
 
 export const UserId = styled.div`
-  font-family: "Pretendard";
   color: var(--gray-500, #778288);
-  font-family: Pretendard Variable;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

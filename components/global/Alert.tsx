@@ -29,7 +29,6 @@ const AlertContainer = styled.div`
 const Text = styled.div`
   color: var(--black, #0b0d0e);
   text-overflow: ellipsis;
-  font-family: "Pretendard";
   font-size: 20px;
   font-style: normal;
   font-weight: 500;

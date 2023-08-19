@@ -49,14 +49,18 @@ const GuessButton = styled(Button)`
 `;
 
 export default function Page({ params }: { params: { id: string } }) {
-
   const MAX_GUESS_COUNT = 5;
-  const randomGuesses = () => new Array(5).fill(undefined).map(() => ({ score: Math.floor(Math.random() * 101) }))
+  const randomGuesses = () =>
+    new Array(5)
+      .fill(undefined)
+      .map(() => ({ score: Math.floor(Math.random() * 101) }));
 
-  const [guesses, setGuesses] = useState<QuizGuess[]>([])
-  const [randomDummyGuesses, setRandomDummyGuesses] = useState<QuizGuess[]>(randomGuesses())
+  const [guesses, setGuesses] = useState<QuizGuess[]>([]);
+  const [randomDummyGuesses, setRandomDummyGuesses] = useState<QuizGuess[]>(
+    randomGuesses()
+  );
 
-  const [guessingValue, setGuessingValue] = useState<number[]>([])
+  const [guessingValue, setGuessingValue] = useState<number[]>([]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -69,30 +73,36 @@ export default function Page({ params }: { params: { id: string } }) {
   }, []);
 
   useEffect(() => {
-
     if ((guesses[guesses.length - 1]?.score ?? 0) > 100) {
-      alert("You are a genius!")
+      alert("You are a genius!");
     } else if (guesses.length > MAX_GUESS_COUNT - 1) {
-      alert("You are a fool!")
-      setGuesses([])
+      alert("You are a fool!");
+      setGuesses([]);
     }
-
-  }, [guesses])
+  }, [guesses]);
 
   const doGuess = useCallback(() => {
-
     // 점수 = min(100, 110 - (오차의 합(%)) / 파라미터 수) )
     const distances = custom.options.map((option, i) => {
-      const guessedValue = guessingValue[i] ?? ((option.max ?? 0) - (option.min ?? 0)) / 2
-      return Math.abs(guessedValue - option.value) / Math.max(guessedValue, option.value) * 100
-    })
+      const guessedValue =
+        guessingValue[i] ?? ((option.max ?? 0) - (option.min ?? 0)) / 2;
+      return (
+        (Math.abs(guessedValue - option.value) /
+          Math.max(guessedValue, option.value)) *
+        100
+      );
+    });
 
-    const score = Math.floor(Math.min(100, 110 - (distances.reduce((a, b) => a + b, 0) / custom.options.length)))
-    setGuesses((prev) => [...prev, { score, guessedValues: guessingValue }])
-
+    const score = Math.floor(
+      Math.min(
+        100,
+        110 - distances.reduce((a, b) => a + b, 0) / custom.options.length
+      )
+    );
+    setGuesses((prev) => [...prev, { score, guessedValues: guessingValue }]);
   }, [guessingValue]);
 
-  const custom = exampleCustoms
+  const custom = exampleCustoms;
 
   return (
     <>
@@ -110,7 +120,12 @@ export default function Page({ params }: { params: { id: string } }) {
         <div style={{ height: 16 }} />
         <ScoreRow>
           {new Array(5).fill(undefined).map((_, i) => (
-            <Score key={i} score={(guesses[i] ?? randomDummyGuesses[i] ?? { score: 0 }).score} />
+            <Score
+              key={i}
+              score={
+                (guesses[i] ?? randomDummyGuesses[i] ?? { score: 0 }).score
+              }
+            />
           ))}
         </ScoreRow>
         <QuizContainer>
@@ -118,8 +133,14 @@ export default function Page({ params }: { params: { id: string } }) {
             <QuizSliderItem key={i}>
               <strong>{option.name}</strong>
               <QuizMinMaxCaption>
-                <span>{option.min?.toLocaleString()}{option.unit}</span>
-                <span>{option.max?.toLocaleString()}{option.unit}</span>
+                <span>
+                  {option.min?.toLocaleString()}
+                  {option.unit}
+                </span>
+                <span>
+                  {option.max?.toLocaleString()}
+                  {option.unit}
+                </span>
               </QuizMinMaxCaption>
               <input
                 type="range"

@@ -30,7 +30,6 @@ const PromotionText = styled.div`
   color: #fff;
   text-align: right;
   /* strong */
-  font-family: Pretendard Variable;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -42,7 +41,6 @@ const PromotionTextSmall = styled.div`
   width: 100%;
   color: var(--gray-500, #778288);
   text-align: right;
-  font-family: Pretendard Variable;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;

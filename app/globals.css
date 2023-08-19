@@ -1,11 +1,9 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
-
 * {
-  font-family: "Pretendard";
   box-sizing: border-box;
 }
 
 html {
+  font-family: "Pretendard";
   overflow: auto !important;
 }
 
@@ -23,7 +21,6 @@ body {
 }
 
 h1 {
-  font-family: "Pretendard";
   font-size: 32px;
   font-style: normal;
   font-weight: 800;
@@ -32,7 +29,6 @@ h1 {
 }
 
 h2 {
-  font-family: "Pretendard";
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -41,7 +37,6 @@ h2 {
 }
 
 strong {
-  font-family: "Pretendard";
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -50,7 +45,6 @@ strong {
 }
 
 p {
-  font-family: "Pretendard";
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -59,7 +53,6 @@ p {
 }
 
 small {
-  font-family: "Pretendard";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

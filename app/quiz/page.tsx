@@ -54,7 +54,9 @@ export default function Page() {
         <PresetItemContainer>
           <RecentText>Shared presets</RecentText>
           {quizzes?.map(({ name, id, author }) => (
-            <PresetItem title={name} $backgroundImage={author.image} key={id} />
+            <S.Link href={`/quiz/${id}`} key={id}>
+              <PresetItem title={name} $backgroundImage={author.image} />
+            </S.Link>
           )) || null}
         </PresetItemContainer>
       </div>
