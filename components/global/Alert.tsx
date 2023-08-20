@@ -23,6 +23,8 @@ const AlertContainer = styled.div`
   width: 320px;
   background-color: white;
   gap: 24px;
+  padding: 1rem 0;
+  border-radius: 8px;
 `;
 
 interface Props {

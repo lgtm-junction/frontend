@@ -18,7 +18,9 @@ export const Search = () => {
         >
           <p>Work in progress!</p>
           <div style={{ height: 16 }} />
-          <Button onClick={closeAlert}>Close</Button>
+          <Button onClick={closeAlert} className="text-strong">
+            Close
+          </Button>
         </div>
       </>
     );
