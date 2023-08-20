@@ -18,8 +18,12 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       // fetch all customizations
-      const customs = await getDocuments<CustomType>(CustomCollectionName);
-      setCustomizations(customs);
+      try {
+        const customs = await getDocuments<CustomType>(CustomCollectionName);
+        setCustomizations(customs);
+      } catch (e) {
+        console.log(e);
+      }
     })();
   }, []);
 
