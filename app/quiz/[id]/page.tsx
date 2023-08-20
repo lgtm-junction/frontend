@@ -84,6 +84,17 @@ const guessesToEmojiContent = (quiz: CustomType, guesses: QuizGuess[]) => {
   ].join("\n");
 };
 
+const guessesToScore = (guesses: QuizGuess[]) => {
+  const maxScore = Math.max(...guesses.map((guess) => guess.score));
+  if (maxScore >= 100) return "Genius!";
+  if (maxScore >= 90) return "Magnificent";
+  if (maxScore >= 80) return "Impressive";
+  if (maxScore >= 70) return "Splendid";
+  if (maxScore >= 60) return "Great";
+  if (maxScore >= 50) return "Good";
+  return "Phew";
+};
+
 export default function Page({ params }: { params: { id: string } }) {
   const { data: session } = useSession();
   const { openAlert, closeAlert } = useAlert();
@@ -141,7 +152,10 @@ export default function Page({ params }: { params: { id: string } }) {
     const score = Math.floor(
       Math.min(
         100,
-        Math.max(0, 110 - distances.reduce((a, b) => a + b, 0) / quiz.options.length),
+        Math.max(
+          0,
+          110 - distances.reduce((a, b) => a + b, 0) / quiz.options.length
+        )
       )
     );
 
@@ -150,6 +164,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
     const success = newGuesses.some((guess) => guess.score === 100);
     const complete = newGuesses.length === MAX_GUESS_COUNT;
+    const title = guessesToScore(newGuesses);
 
     if (success || complete) {
       if (session && session.user) {
@@ -175,7 +190,7 @@ export default function Page({ params }: { params: { id: string } }) {
         openAlert(
           <AlertContainer>
             <div style={{ height: 16 }} />
-            <h2 className="text-h2 text-center">Complete!</h2>
+            <h2 className="text-h2 text-center">{title}</h2>
             <p className="text-p text-center">Copied to clipboard.</p>
             <div style={{ height: 16 }} />
             <ButtonsRow>
@@ -202,7 +217,7 @@ export default function Page({ params }: { params: { id: string } }) {
       openAlert(
         <AlertContainer>
           <div style={{ height: 16 }} />
-          <h2 className="text-h2 text-center">Complete!</h2>
+          <h2 className="text-h2 text-center">{title}</h2>
           <ScoreRow style={{ width: "100%" }}>
             {new Array(5).fill(undefined).map((_, i) => (
               <Score key={i} score={(newGuesses[i] ?? { score: null }).score} />
