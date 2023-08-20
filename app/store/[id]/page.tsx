@@ -78,10 +78,10 @@ export default function Page({ params }: { params: { id: string } }) {
           {restaurant?.menus.map((menu) => (
             <Link
               href={`./${params.id}/menu/${menu.id}`}
-              className="flex gap-3 items-center border-b border-b-gray-100 last-of-type:border-b-transparent py-4"
+              className="flex gap-4 items-center border-b border-b-gray-100 last-of-type:border-b-transparent py-4"
               key={menu.id}
             >
-              <div className="w-20 h-20 border border-black">
+              <div className="w-24 h-24">
                 <img
                   src={menu.imageUrl}
                   className="w-full h-full object-cover"

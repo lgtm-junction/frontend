@@ -65,6 +65,7 @@ export interface RestaurantType {
   robot: Robot;
   // separate query for food
   menuIds: string[];
+  imageUrl: string;
 }
 
 export const RestaurantCollectionName = "stores";

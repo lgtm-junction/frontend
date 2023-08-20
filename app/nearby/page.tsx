@@ -31,14 +31,14 @@ export default async function Nearby() {
       </div>
       <BottomSheets initialTop={350}>
         <div className="w-full flex flex-col px-4">
-          {resturants.map(({ name, geoInformation, id }, idx) => (
+          {resturants.map(({ name, geoInformation, id, imageUrl }, idx) => (
             <Link
               href={`/store/${id}`}
-              className="flex gap-3 items-center border-b border-b-gray-100 last-of-type:border-b-transparent py-4"
+              className="flex gap-4 items-center border-b border-b-gray-100 last-of-type:border-b-transparent py-4"
               key={`store-${idx}`}
             >
-              <div className="w-20 h-20 border border-black shrink-0">
-                <img src="/cake.jpg" className="w-full h-full object-cover" />
+              <div className="w-24 h-24 shrink-0">
+                <img src={imageUrl} className="w-full h-full object-cover" />
               </div>
 
               <div className="flex flex-col flex-1">
