@@ -80,7 +80,7 @@ const guessesToEmojiContent = (quiz: CustomType, guesses: QuizGuess[]) => {
       return `${guessResultEmoji}${scoreEmoji(score)} ${score}pts`;
     }),
     "",
-    `https://lgtm.sft.sh/quiz/${quiz.id}`,
+    `https://lgtm.sft.sh/quiz/${quiz.id} #Foodle #JunctionAsia`,
   ].join("\n");
 };
 
