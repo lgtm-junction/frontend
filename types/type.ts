@@ -23,6 +23,7 @@ export interface CustomType {
   tags: string[];
   price: number;
   options: CustomOptionType[];
+  menuId: string;
 }
 
 export interface CustomOptionType {
