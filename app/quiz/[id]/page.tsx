@@ -199,6 +199,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                   content
                 )}`}
+                target="_blank"
                 style={{ flex: 1 }}
               >
                 Twitter
