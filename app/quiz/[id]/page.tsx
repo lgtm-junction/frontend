@@ -141,7 +141,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const score = Math.floor(
       Math.min(
         100,
-        110 - distances.reduce((a, b) => a + b, 0) / quiz.options.length
+        Math.max(0, 110 - distances.reduce((a, b) => a + b, 0) / quiz.options.length),
       )
     );
 
