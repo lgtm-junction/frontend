@@ -1,6 +1,7 @@
 "use client";
 
 import * as S from "@/app/styles";
+import { QuizCoverImage } from "@/components/Quiz/CoverImage";
 import { Score, ScoreRow } from "@/components/Score";
 import { Button } from "@/components/global/Button";
 import { useAlert } from "@/context/useAlert";
@@ -14,17 +15,6 @@ import { CustomType, QuizGuess, QuizScore } from "@/types/type";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-
-const CoverImage = styled.div<{ url: string }>`
-  width: calc(100% + 32px);
-  height: 128px;
-  background-image: url("${(props) => props.url}");
-  background-size: cover;
-  background-position: center;
-  margin-top: -16px;
-  margin-left: -16px;
-  margin-right: -16px;
-`;
 
 const QuizContainer = styled.div`
   width: 100%;
@@ -254,7 +244,7 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <S.Container>
-        <CoverImage url="/almonds.png" />
+        <QuizCoverImage url="/almonds.png" />
         <div style={{ height: 24 }} />
         <strong>{quiz.name}</strong>
         <p
