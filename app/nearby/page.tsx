@@ -19,7 +19,7 @@ export default async function Nearby() {
   return (
     <S.Container>
       <div className="relative">
-        <button className="absolute left-1/2 -translate-x-1/2 top-5 z-40 bg-black text-white text-sm font-bold flex gap-2 justify-center items-center w-fit px-2">
+        <button className="absolute left-1/2 -translate-x-1/2 top-5 z-40 bg-black text-white text-sm font-bold flex gap-2 justify-center items-center w-fit px-4 py-2">
           <MdLocationOn />
           Search this area
         </button>
