@@ -189,10 +189,8 @@ export default function Page({ params }: { params: { id: string } }) {
                 Twitter
               </Button>
               <Button
-                onClick={() => {
-                  closeAlert();
-                  setGuesses([]);
-                }}
+                as="a"
+                href={`/quiz/${quiz.id}/ranking`}
                 style={{ flex: 1 }}
               >
                 Close
@@ -216,10 +214,8 @@ export default function Page({ params }: { params: { id: string } }) {
               Share
             </Button>
             <Button
-              onClick={() => {
-                closeAlert();
-                setGuesses([]);
-              }}
+              as="a"
+              href={`/quiz/${quiz.id}/ranking`}
               style={{ flex: 1 }}
             >
               Close
@@ -228,7 +224,7 @@ export default function Page({ params }: { params: { id: string } }) {
         </AlertContainer>
       );
     }
-  }, [quiz, guesses, guessingValue, session, openAlert, closeAlert]);
+  }, [quiz, guesses, guessingValue, session, openAlert]);
 
   if (!quiz) {
     return (

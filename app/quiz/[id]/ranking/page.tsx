@@ -85,7 +85,9 @@ export default function Page({ params }: { params: { id: string } }) {
         {scoreEntries.map((x) => (
           <ScoreEntryItem key={x.rank}>
             <ScoreRankRow>
-              <strong>{englishNumeral(x.rank)}</strong>
+              <span>
+                <strong>{englishNumeral(x.rank)}</strong> / {x.maxScore}pts
+              </span>
               <UserSmall>
                 <small
                   style={{
