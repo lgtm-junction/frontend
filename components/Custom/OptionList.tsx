@@ -2,6 +2,8 @@ import { CUSTOM } from "@/constants/dummy";
 import CustomOptionItem from "./OptionItem";
 import { useCart } from "@/context/useCart";
 import { useState } from "react";
+import { Button } from "../global/Button";
+import { useAlert } from "@/context/useAlert";
 
 export default function CustomOptionList({
   id,
@@ -24,6 +26,29 @@ export default function CustomOptionList({
       };
     });
   };
+
+  const { openAlert, closeAlert } = useAlert();
+  const handleClick = () => {
+    openAlert(
+      <>
+        <div
+          style={{
+            padding: 16,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <p>Work in progress!</p>
+          <div style={{ height: 16 }} />
+          <Button onClick={closeAlert} className="text-strong">
+            Close
+          </Button>
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       {item.options.map((option) => (
@@ -50,7 +75,9 @@ export default function CustomOptionList({
         >
           Cart
         </button>
-        <button className="bg-black h-16 w-full">Order</button>
+        <button className="bg-black h-16 w-full" onClick={handleClick}>
+          Order
+        </button>
       </div>
     </>
   );
