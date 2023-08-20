@@ -127,16 +127,6 @@ export default function Page({ params }: { params: { id: string } }) {
     fetchQuiz();
   }, [fetchQuiz]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setRandomDummyGuesses(randomGuesses());
-    }, 100);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
   const doGuess = useCallback(() => {
     if (!quiz) return;
     // 점수 = min(100, 110 - (오차의 합(%)) / 파라미터 수) )
@@ -269,12 +259,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <div style={{ height: 16 }} />
         <ScoreRow>
           {new Array(5).fill(undefined).map((_, i) => (
-            <Score
-              key={i}
-              score={
-                (guesses[i] ?? randomDummyGuesses[i] ?? { score: 0 }).score
-              }
-            />
+            <Score key={i} score={(guesses[i] || { score: null }).score} />
           ))}
         </ScoreRow>
         <QuizContainer>
