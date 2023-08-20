@@ -10,7 +10,7 @@ export const BodyBackground = styled.div`
   z-index: -1;
   left: 0;
   top: 0;
-  background-image: url("/background.png");
+  background-image: url("/background_big.png");
   background-size: cover;
   background-position: center;
   @media (max-aspect-ratio: 5/4) {
