@@ -101,7 +101,10 @@ export default function Page({ params }: { params: { id: string } }) {
             </ScoreRankRow>
             <ScoreRow>
               {new Array(5).fill(undefined).map((_, i) => (
-                <Score key={i} score={x.score[i] || null} />
+                <Score
+                  key={i}
+                  score={typeof x.score[i] === "number" ? x.score[i] : null}
+                />
               ))}
             </ScoreRow>
           </ScoreEntryItem>
