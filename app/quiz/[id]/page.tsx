@@ -193,12 +193,7 @@ export default function Page({ params }: { params: { id: string } }) {
           <h2 className="text-h2 text-center">Complete!</h2>
           <ScoreRow style={{ width: "100%" }}>
             {new Array(5).fill(undefined).map((_, i) => (
-              <Score
-                key={i}
-                score={
-                  (newGuesses[i] ?? randomDummyGuesses[i] ?? { score: 0 }).score
-                }
-              />
+              <Score key={i} score={(newGuesses[i] ?? { score: null }).score} />
             ))}
           </ScoreRow>
           <div style={{ height: 16 }} />
