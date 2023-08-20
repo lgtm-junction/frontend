@@ -45,7 +45,7 @@ export default function CustomList({
                       {convertValueAndUnit(
                         option.value,
                         option.unit,
-                        option.isBoolean
+                        option.isBoolean || false
                       )}
                     </li>
                   ))}
