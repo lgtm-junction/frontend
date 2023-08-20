@@ -1,19 +1,20 @@
-import { OptionType } from "@/types/type";
-import { useEffect, useState } from "react";
+import { CustomOptionType } from "@/types/type";
 import cc from "classcat";
+import { useState } from "react";
 
 export default function CustomOptionItem({
   option,
   changeOption,
 }: {
-  option: OptionType;
+  option: CustomOptionType;
   changeOption: (newValue: number) => void;
 }) {
   const [value, setValue] = useState(option.value);
 
-  useEffect(() => {
+  const handleSetValue = (value: number) => {
+    setValue(value);
     changeOption(value);
-  }, [value]);
+  };
 
   return (
     <div
@@ -31,7 +32,7 @@ export default function CustomOptionItem({
               type="checkbox"
               className="toggle"
               defaultChecked={option.value === 1}
-              onChange={() => setValue((v) => (v === 0 ? 1 : 0))}
+              onChange={() => handleSetValue(1 - value)}
             />
           )}
         </div>
@@ -49,7 +50,7 @@ export default function CustomOptionItem({
             min={option.min}
             max={option.max}
             defaultValue={option.value}
-            onChange={(e) => setValue(parseInt(e.target.value))}
+            onChange={(e) => handleSetValue(parseInt(e.target.value))}
             className="range range-xs w-full [--range-shdw:215_0%_0%]"
           />
           <div className="flex items-center text-sm justify-between">
