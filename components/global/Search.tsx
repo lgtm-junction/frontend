@@ -1,9 +1,27 @@
 "use client";
+import { useAlert } from "@/context/useAlert";
 import { AiOutlineSearch } from "react-icons/ai";
+import { Button } from "./Button";
 
 export const Search = () => {
+  const { openAlert, closeAlert } = useAlert();
   const handleClick = () => {
-    alert("search");
+    openAlert(
+      <>
+        <div
+          style={{
+            padding: 16,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <p>Work in progress!</p>
+          <div style={{ height: 16 }} />
+          <Button onClick={closeAlert}>Close</Button>
+        </div>
+      </>
+    );
   };
   const handleOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
