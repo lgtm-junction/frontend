@@ -11,13 +11,15 @@ export interface MenuType {
   options?: string[];
 }
 
+export interface Author {
+  id: string;
+  image: string | null;
+}
+
 export interface CustomType {
   id: string;
   name: string;
-  author: {
-    id: string;
-    image: string;
-  };
+  author: Author;
   tags: string[];
   price: number;
   options: CustomOptionType[];
@@ -34,7 +36,6 @@ export interface CustomOptionType {
   value: number;
 }
 
-
 export interface Robot {
   // JAKA Zu 18
   modelName: string;
@@ -50,7 +51,7 @@ export interface GeoInformation {
   marker: {
     latitude: number;
     longitude: number;
-  }
+  };
   // pseudo distance from my location in kilometers
   pseudoDistance: number;
 }
@@ -76,4 +77,15 @@ export interface Quiz {
 export interface QuizGuess {
   score: number;
   guessedValues?: number[];
+}
+
+export interface QuizScore {
+  author: Author;
+  customizationId: string;
+  maxScore: number;
+  // The first index where the max score is achieved
+  maxScoreAtIndex: number;
+  score: number[];
+  // The record creation time in UNIX milliseconds
+  createdAt: number;
 }

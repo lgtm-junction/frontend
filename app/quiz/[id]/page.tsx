@@ -4,8 +4,14 @@ import * as S from "@/app/styles";
 import { Score, ScoreRow } from "@/components/Score";
 import { Button } from "@/components/global/Button";
 import { useAlert } from "@/context/useAlert";
-import { CustomCollectionName, getDocument } from "@/firebase/getData";
-import { CustomType, QuizGuess } from "@/types/type";
+import {
+  CustomCollectionName,
+  QuizScoresName,
+  appendToDatabase,
+  getDocument,
+} from "@/firebase/getData";
+import { CustomType, QuizGuess, QuizScore } from "@/types/type";
+import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -89,6 +95,7 @@ const guessesToEmojiContent = (quiz: CustomType, guesses: QuizGuess[]) => {
 };
 
 export default function Page({ params }: { params: { id: string } }) {
+  const { data: session } = useSession();
   const { openAlert, closeAlert } = useAlert();
   const randomGuesses = () =>
     new Array(MAX_GUESS_COUNT)
@@ -155,6 +162,23 @@ export default function Page({ params }: { params: { id: string } }) {
     const complete = newGuesses.length === MAX_GUESS_COUNT;
 
     if (success || complete) {
+      if (session && session.user) {
+        const maxScore = Math.max(...newGuesses.map((guess) => guess.score));
+        const maxScoreAtIndex = newGuesses.findIndex(
+          (guess) => guess.score === maxScore
+        );
+        appendToDatabase(QuizScoresName, {
+          author: {
+            id: session.user.email || "anonymous",
+            image: session.user.image || null,
+          },
+          createdAt: new Date().getTime(),
+          maxScore,
+          maxScoreAtIndex,
+          score: newGuesses.map((x) => x.score),
+          customizationId: quiz.id,
+        } satisfies QuizScore);
+      }
       const content = guessesToEmojiContent(quiz, newGuesses);
       const copyContent = () => {
         navigator.clipboard.writeText(content);
@@ -214,7 +238,7 @@ export default function Page({ params }: { params: { id: string } }) {
         </AlertContainer>
       );
     }
-  }, [closeAlert, quiz, guesses, guessingValue, openAlert, randomDummyGuesses]);
+  }, [quiz, guesses, guessingValue, session, openAlert, closeAlert]);
 
   if (!quiz) {
     return (

@@ -1,20 +1,23 @@
 import { CustomType, MenuType } from "@/types/type";
 import {
-    DocumentData,
-    collection,
-    doc,
-    documentId,
-    getDoc,
-    getDocs,
-    getFirestore,
-    query,
-    where,
+  DocumentData,
+  DocumentReference,
+  addDoc,
+  collection,
+  doc,
+  documentId,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  where,
 } from "firebase/firestore";
 import { firebaseApp } from "./firebase.config";
 
 export const MenuCollectionName = "foods";
 export const RestaurantCollectionName = "stores";
 export const CustomCollectionName = "customizations";
+export const QuizScoresName = "quizScores";
 
 const db = getFirestore(firebaseApp);
 
@@ -45,6 +48,13 @@ export async function getDocuments<T>(collectionName: string): Promise<T[]> {
       return docs;
     }
   );
+}
+
+export async function appendToDatabase<T>(
+  collectionName: string,
+  data: T
+): Promise<DocumentReference<T, DocumentData>> {
+  return addDoc(collection(db, collectionName), data as any);
 }
 
 export async function getMenu(menuId: string): Promise<MenuType> {
