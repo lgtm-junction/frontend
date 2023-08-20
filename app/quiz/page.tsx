@@ -6,7 +6,9 @@ import PresetItem from "@/components/PresetItem";
 import { Tab, TabsContainer } from "@/components/Tab";
 import { CustomCollectionName, getDocuments } from "@/firebase/getData";
 import { CustomType } from "@/types/type";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { MdNavigateNext, MdTrendingUp } from "react-icons/md";
 import styled from "styled-components";
 
 const RecentText = styled.div`
@@ -54,9 +56,22 @@ export default function Page() {
         <PresetItemContainer>
           <RecentText>Shared presets</RecentText>
           {quizzes?.map(({ name, id, author }) => (
-            <S.Link href={`/quiz/${id}`} key={id}>
-              <PresetItem title={name} $backgroundImage={author.image} />
-            </S.Link>
+            <PresetItem
+              key={id}
+              title={name}
+              $backgroundImage={author.image}
+              ComponentRight={
+                <>
+                  <Link href={`/quiz/${id}/ranking`}>
+                    <MdTrendingUp size={32} />
+                  </Link>
+                  <Link href={`/quiz/${id}`}>
+                    <MdNavigateNext size={32} />
+                  </Link>
+                </>
+              } 
+              hideNavigateNext
+            />
           )) || null}
         </PresetItemContainer>
       </div>

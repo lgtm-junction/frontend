@@ -32,13 +32,20 @@ const RecentPresetTitle = styled.div`
   letter-spacing: -0.2px;
 `;
 
+const Actions = styled.div`
+  display: flex;
+  gap: 0 8px;
+`;
+
 interface PresetItemProps {
   title: string;
   $backgroundImage: string | null;
+  hideNavigateNext?: boolean;
+  ComponentRight?: React.ReactNode;
 }
 
 const PresetItem = (props: PresetItemProps) => {
-  const { title, $backgroundImage } = props;
+  const { title, $backgroundImage, ComponentRight, hideNavigateNext } = props;
 
   return (
     <RecentPresetItem key={title}>
@@ -46,7 +53,10 @@ const PresetItem = (props: PresetItemProps) => {
         <Octagon width="36px" $backgroundImage={$backgroundImage}></Octagon>
         <RecentPresetTitle>{title}</RecentPresetTitle>
       </RecentPresetTitleContainer>
-      <MdNavigateNext size="24px" />
+      <Actions>
+        {ComponentRight}
+        {!hideNavigateNext ? <MdNavigateNext size="24px" /> : null}
+      </Actions>
     </RecentPresetItem>
   );
 };
