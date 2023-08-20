@@ -2,7 +2,10 @@
 
 import styled from "styled-components";
 
-export const Octagon = styled.div<{ width: string; $backgroundImage?: string }>`
+export const Octagon = styled.div<{
+  width: string;
+  $backgroundImage?: string | null;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;

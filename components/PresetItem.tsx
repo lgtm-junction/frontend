@@ -34,7 +34,7 @@ const RecentPresetTitle = styled.div`
 
 interface PresetItemProps {
   title: string;
-  $backgroundImage: string;
+  $backgroundImage: string | null;
 }
 
 const PresetItem = (props: PresetItemProps) => {
