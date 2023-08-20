@@ -6,6 +6,7 @@ export const CUSTOM: CustomType[] = [
     name: "ALMOND EXTRA",
     price: 5000,
     tags: ["SWEET", "NUTS"],
+    menuId: "MENU_ID",
     options: [
       {
         id: "1",
