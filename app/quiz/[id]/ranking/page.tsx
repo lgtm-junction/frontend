@@ -80,7 +80,7 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <S.Container>
-        <QuizCoverImage url="/almonds.png" />
+        <QuizCoverImage url="/gcova.png" />
         <div style={{ height: 24 }} />
         {scoreEntries.map((x) => (
           <ScoreEntryItem key={x.rank}>
