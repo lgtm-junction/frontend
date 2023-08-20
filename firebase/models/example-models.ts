@@ -8,6 +8,7 @@ export const testMenus: Omit<MenuType, "id">[] = [
     options: ["지코특제양념", "지코특제양념", "설탕", "소금"],
     customizations: [
       {
+        menuId: "rbKVdjTkqNAjfXghIDxH",
         id: "1",
         name: "ZICO YANGNYUM",
         author: {
@@ -50,6 +51,7 @@ export const testMenus: Omit<MenuType, "id">[] = [
     allergyInfo: ["Milk", "Chocolate"],
     customizations: [
       {
+        menuId: "rbKVdjTkqNAjfXghIDxH",
         id: "1",
         name: "Extra Shot",
         author: {
@@ -93,6 +95,7 @@ export const testRestaurants: Omit<RestaurantType, "id">[] = [
     menuIds: [
       "rbKVdjTkqNAjfXghIDxH"
     ],
+    imageUrl: "/bbq.jpg",
   },
   {
     name: "BUSAN EXPO 2030 WORLD CAFE",
@@ -111,6 +114,7 @@ export const testRestaurants: Omit<RestaurantType, "id">[] = [
       comment: "Korea's challenge to host the World EXPO! Busan begins the challenge, and Korea achieves it together.",
     },
     menuIds: [],
+    imageUrl: "/expo.png",
   },
   {
     name: "Hexagon wrench French",
@@ -129,11 +133,13 @@ export const testRestaurants: Omit<RestaurantType, "id">[] = [
       comment: "Supreme quality French cuisine like Hexagon",
     },
     menuIds: [],
+    imageUrl: "/gcova.png",
   },
 ]
 
 
 export const exampleCustoms: CustomType = {
+  menuId: "rbKVdjTkqNAjfXghIDxH",
   id: "customTypeTest",
   name: "Almond Extra",
   author: {
